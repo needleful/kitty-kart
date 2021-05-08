@@ -11,7 +11,6 @@ export(float) var steer_angle:float = PI/5
 export(float) var slide_brake:float = 10.0
 
 onready var target:Spatial = get_node(target_node)
-onready var starting_line:Spatial = target
 onready var wheels = [$wheel_bl, $wheel_br, $wheel_fl, $wheel_fr]
 
 onready var last_good_pos:Vector3 = global_transform.origin
@@ -25,14 +24,15 @@ var markers = 0
 func cam_target() -> Vector3:
 	return $cam_target.global_transform.origin
 
+func set_target(p_target:Spatial):
+	target = p_target
+	last_good_pos = global_transform.origin
+
 func mark_next(current:Spatial, p_target:Spatial):
 	if target == current:
 		target = p_target
 		last_good_pos = current.global_transform.origin
 		markers += 1
-		if target == starting_line:
-			lap += 1
-			markers = 1
 		emit_signal("mark_crossed", self)
 
 func get_throttle() -> float:

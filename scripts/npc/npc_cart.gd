@@ -21,7 +21,7 @@ onready var groundCast:RayCast = $groundCast
 onready var avoidance_area:Area = $avoidance_area
 
 func get_throttle():
-	if !groundCast.is_colliding():
+	if !target or !groundCast.is_colliding():
 		return 0.0
 
 	var target_pos = target.global_transform.origin
@@ -52,8 +52,9 @@ func get_steer():
 		var base = dir.dot(global_transform.basis.x)
 		for c in avoidance_area.get_overlapping_bodies():
 			var n = c.global_transform.origin - global_transform.origin
-			if n.dot(global_transform.basis.z) < 0:
-				var a = n*avoidance_radius/(1+ n.length_squared())
+			var nz = n.dot(global_transform.basis.z)
+			if nz < 0:
+				var a = n*avoidance_radius/(1+ n.length())
 				base += (avoidance*a).dot(global_transform.basis.x)
 			else:
 				var b = n/cutoff_radius

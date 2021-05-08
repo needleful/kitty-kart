@@ -1,12 +1,18 @@
 extends Node
 
+signal race_start()
 signal ranking_changed(order)
 signal winner(racer, winners)
+
+export (float) var time_to_start = 3.0
+
+var start_timer = Timer.new() 
 
 export(int) var laps
 export(NodePath) var starting_line
 export(Array, NodePath) var racers
 
+onready var start = get_node(starting_line)
 var winners = []
 
 var _racers = []
@@ -17,9 +23,20 @@ func _ready():
 		assert(r)
 		_racers.push_back(r)
 		var _x = r.connect("mark_crossed", self, "sort_racers")
+	start_countdown()
+
+func start_countdown():
+	emit_signal("race_start")
+
+func start_race():
+	for r in _racers:
+		r.set_target(start)
 
 func sort_racers(r):
-	if r.lap >= laps and !(r in winners):
+	if r.target == start.next:
+		r.lap += 1
+		r.markers = 1
+	if r.lap > laps and !(r in winners):
 		winners.push_back(r)
 		if r in _racers:
 			_racers.remove(_racers.find(r))
