@@ -191,7 +191,7 @@ material/0 = null
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.603335, 0.289193 )
 
 [node name="weapon_slot" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.360457, 0.464461, 0.281411 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.360457, 0.532634, -0.113377 )
 
 [node name="groundCast" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.110978 )

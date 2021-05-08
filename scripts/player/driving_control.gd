@@ -5,7 +5,7 @@ onready var front_wheels = [$wheel_fl, $wheel_fr]
 
 func _input(event):
 	if weapon and event.is_action_pressed("vh_fire"):
-		if !weapon.fire():
+		if !weapon.fire(self):
 			weapon.queue_free()
 			weapon = null
 

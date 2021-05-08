@@ -26,8 +26,7 @@ var markers = 0
 
 func _ready():
 	if starting_weapon:
-		weapon = starting_weapon.instance()
-		$weapon_slot.add_child(weapon)
+		set_weapon(starting_weapon)
 
 func cam_target() -> Vector3:
 	return $cam_target.global_transform.origin
@@ -75,3 +74,7 @@ func reset(pos: Vector3):
 	global_transform.origin = pos
 	global_transform = global_transform.looking_at(target.global_transform.origin, Vector3.UP)
 	apply_central_impulse(-linear_velocity*mass/2)
+
+func set_weapon(wep: PackedScene):
+	weapon = wep.instance()
+	$weapon_slot.add_child(weapon)
