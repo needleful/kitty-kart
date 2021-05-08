@@ -12,7 +12,12 @@ _global_script_classes=[ {
 "base": "Path",
 "class": "AutoRoad",
 "language": "GDScript",
-"path": "res://scripts/level_gen/auto_road.gd"
+"path": "res://scripts/track/auto_road.gd"
+}, {
+"base": "VehicleBody",
+"class": "Cart",
+"language": "GDScript",
+"path": "res://scripts/cart.gd"
 }, {
 "base": "Reference",
 "class": "MoveMath",
@@ -21,6 +26,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AutoRoad": "",
+"Cart": "",
 "MoveMath": ""
 }
 
@@ -30,6 +36,11 @@ config/name="Kitty's 100% Legitimate No-Cheating-Allowed Kart Racer"
 config/description="Kitty's been invited to race, and there's a whole litany of rules to the race!"
 run/main_scene="res://scenes/test.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/fullscreen=true
+window/dpi/allow_hidpi=true
 
 [input]
 

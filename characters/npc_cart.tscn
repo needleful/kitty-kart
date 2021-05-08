@@ -99,6 +99,7 @@ surfaces/0 = {
 }
 
 [node name="npc_cart" type="VehicleBody"]
+collision_layer = 3
 mass = 80.0
 continuous_cd = true
 script = ExtResource( 1 )
@@ -189,3 +190,8 @@ material/0 = null
 
 [node name="cam_target" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.603335, 0.289193 )
+
+[node name="groundCast" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.110978 )
+enabled = true
+cast_to = Vector3( 0, -0.25, 0 )

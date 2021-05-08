@@ -1,30 +1,32 @@
-extends VehicleBody
+extends Cart
 
-export (NodePath) var target_node
+export(float) var throttle_reverse: float = -0.5
+var reversing: bool = false
+var dir: Vector3
 
-onready var target:Spatial = get_node(target_node)
+onready var groundCast:RayCast = $groundCast
 
-const horsepower: float = 300.0
-const steer_angle:float = PI/6
-const slide_brake:float = 10.0
+func get_throttle():
+	if !groundCast.is_colliding():
+		return 0.0
 
-onready var rear_wheels = [$wheel_bl, $wheel_br]
-onready var front_wheels = [$wheel_fl, $wheel_fr]
-onready var wheels = [$wheel_bl, $wheel_br, $wheel_fl, $wheel_fr]
-
-func _physics_process(delta):
 	var target_pos = target.global_transform.origin
-	var basis = global_transform.basis
-	var dir = (global_transform.origin - target_pos).normalized()
-	var throttle: float  = dir.dot(basis.z)
-	var steer: float = dir.dot(basis.x)
-	var slide = 0
-	
-	engine_force = throttle*horsepower
-	steering = steer*steer_angle
-	for wheel in wheels:
-		wheel.brake = slide*slide_brake
+	dir = (global_transform.origin - target_pos).normalized()
+	var throttle: float = dir.dot(global_transform.basis.z)
+	if !reversing:
+		if throttle < throttle_reverse:
+			reversing = true
+		else:
+			throttle = max(0.5, throttle)
+	else:
+		if throttle > 0:
+			reversing = false
+		else:
+			throttle = -0.8
+	return throttle
 
-
-func cam_target() -> Vector3:
-	return $cam_target.global_transform.origin
+func get_steer():
+	if !reversing:
+		return dir.dot(global_transform.basis.x)
+	else:
+		return steer_angle
