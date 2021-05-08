@@ -3,6 +3,12 @@ extends Cart
 onready var rear_wheels = [$wheel_bl, $wheel_br]
 onready var front_wheels = [$wheel_fl, $wheel_fr]
 
+func _input(event):
+	if weapon and event.is_action_pressed("vh_fire"):
+		if !weapon.fire():
+			weapon.queue_free()
+			weapon = null
+
 func _process(_delta):
 	$Label2.text = "Speed: %.1f" % linear_velocity.length()
 

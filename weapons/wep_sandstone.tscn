@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/weapons/sandstone.gd" type="Script" id=1]
+[ext_resource path="res://weapons/sandstone.tscn" type="PackedScene" id=2]
+
+[sub_resource type="PrismMesh" id=1]
+size = Vector3( 0.2, 0.2, 1 )
+
+[node name="wep_sandstone" type="Spatial"]
+script = ExtResource( 1 )
+stone = ExtResource( 2 )
+unlimited = true
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="Position3D" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.27027 )

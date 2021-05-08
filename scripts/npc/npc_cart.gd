@@ -16,6 +16,7 @@ export(float) var cutoff_radius: float = 3.0
 var reversing: bool = false
 var dir: Vector3
 var slow:bool = false
+var temp_target:Vector3 = Vector3.ZERO setget set_temp_target
 
 onready var groundCast:RayCast = $groundCast
 onready var avoidance_area:Area = $avoidance_area
@@ -23,8 +24,9 @@ onready var avoidance_area:Area = $avoidance_area
 func get_throttle():
 	if !target or !groundCast.is_colliding():
 		return 0.0
-
-	var target_pos = target.global_transform.origin
+	var target_pos: Vector3 = target.global_transform.origin
+	if temp_target != Vector3.ZERO:
+		target_pos = temp_target
 	dir = (global_transform.origin - target_pos).normalized()
 	var throttle: float = dir.dot(global_transform.basis.z)
 	if !reversing:
@@ -69,6 +71,9 @@ func get_brake():
 	else:
 		return 0.0
 		
+
+func set_temp_target(t):
+	temp_target = t
 
 func set_slow(s):
 	slow = s

@@ -5,6 +5,7 @@ signal mark_crossed(cart)
 
 export(String) var racer_name
 export (NodePath) var target_node
+export (PackedScene) var starting_weapon
 
 export(float) var horsepower: float = 300.0
 export(float) var steer_angle:float = PI/5
@@ -15,11 +16,18 @@ onready var wheels = [$wheel_bl, $wheel_br, $wheel_fl, $wheel_fr]
 
 onready var last_good_pos:Vector3 = global_transform.origin
 
+var weapon: Node
+
 var flipped_time = 0
 var time_to_reset = 3
 
 var lap = 0
 var markers = 0
+
+func _ready():
+	if starting_weapon:
+		weapon = starting_weapon.instance()
+		$weapon_slot.add_child(weapon)
 
 func cam_target() -> Vector3:
 	return $cam_target.global_transform.origin

@@ -5,7 +5,7 @@
 [sub_resource type="SphereShape" id=1]
 radius = 0.2
 
-[node name="CamYaw" type="Spatial"]
+[node name="player_camera" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.743659, 0.275277 )
 script = ExtResource( 1 )
 body_node = NodePath("..")

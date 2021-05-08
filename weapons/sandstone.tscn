@@ -1,0 +1,108 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scripts/track/obstacle_zone.gd" type="Script" id=1]
+
+[sub_resource type="ConvexPolygonShape" id=6]
+points = PoolVector3Array( -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, -1 )
+
+[sub_resource type="ConvexPolygonShape" id=2]
+points = PoolVector3Array( -0.5, 1, 1.5, 0.5, 1, -1.5, 0.5, 1, 1.5, -0.5, 1, -1.5, -0.5, -1, 1.5, 0.5, -1, -1.5, 0.5, -1, 1.5, -0.5, -1, -1.5, 0.5, 1, 1.5, -0.5, 1, -1.5, 0.5, 1, -1.5, -0.5, 1, 1.5, 0.5, -1, 1.5, -0.5, -1, -1.5, 0.5, -1, -1.5, -0.5, -1, 1.5, 0.5, 1, 1.5, -0.5, -1, 1.5, -0.5, 1, 1.5, 0.5, -1, 1.5, 0.5, 1, -1.5, -0.5, -1, -1.5, -0.5, 1, -1.5, 0.5, -1, -1.5 )
+
+[sub_resource type="ConvexPolygonShape" id=7]
+points = PoolVector3Array( -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, -1 )
+
+[sub_resource type="CubeMesh" id=3]
+
+[sub_resource type="CubeMesh" id=4]
+size = Vector3( 1, 2, 3 )
+
+[sub_resource type="SphereShape" id=8]
+radius = 6.0
+
+[sub_resource type="Animation" id=5]
+resource_name = "rise"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("KinematicBody:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 8, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -1.49349, 0 ), Vector3( 0, 0.455447, 0 ), Vector3( 0, 0.455447, 0 ), Vector3( 0, -1.49349, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("KinematicBody:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 10 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[node name="sandstone" type="Spatial"]
+
+[node name="KinematicBody" type="KinematicBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.455447, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 0.970139, 0, -0.242548, 0, 1, 0, 0.242548, 0, 0.970139, 0, -0.122069, -3.59764 )
+shape = SubResource( 6 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.18844 )
+shape = SubResource( 2 )
+
+[node name="CollisionShape3" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 0.970139, 0, -0.242548, 0, 1, 0, 0.242548, 0, 0.970139, 1.93779, -0.165086, -1.78531 )
+shape = SubResource( 7 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="KinematicBody"]
+transform = Transform( 0.970139, 0, -0.242548, 0, 1, 0, 0.242548, 0, 0.970139, 0, -0.122069, -3.59764 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="MeshInstance3" type="MeshInstance" parent="KinematicBody"]
+transform = Transform( 0.970139, 0, -0.242548, 0, 1, 0, 0.242548, 0, 0.970139, 1.93779, -0.165086, -1.78531 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="MeshInstance" type="MeshInstance" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.18844 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="Area" type="Area" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.365007, 0, -2.20021 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 1 )
+radius = 7.0
+
+[node name="CollisionShape" type="CollisionShape" parent="KinematicBody/Area"]
+shape = SubResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "rise"
+anims/rise = SubResource( 5 )
