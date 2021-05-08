@@ -14,7 +14,7 @@ onready var target:Spatial = get_node(target_node)
 onready var starting_line:Spatial = target
 onready var wheels = [$wheel_bl, $wheel_br, $wheel_fl, $wheel_fr]
 
-var last_good_pos:Vector3 = global_transform.origin
+onready var last_good_pos:Vector3 = global_transform.origin
 
 var flipped_time = 0
 var time_to_reset = 3

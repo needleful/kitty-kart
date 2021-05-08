@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scripts/npc/npc_cart.gd" type="Script" id=1]
 
@@ -98,6 +98,9 @@ surfaces/0 = {
 "vertex_count": 48
 }
 
+[sub_resource type="SphereShape" id=13]
+radius = 5.1169
+
 [node name="npc_cart" type="VehicleBody"]
 collision_layer = 3
 mass = 80.0
@@ -121,7 +124,7 @@ mesh = SubResource( 2 )
 material/0 = null
 
 [node name="wheel_fl" type="VehicleWheel" parent="."]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.37, 0.051, -0.448 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.425, 0.008, -0.448 )
 use_as_steering = true
 wheel_radius = 0.169
 wheel_rest_length = 0.04
@@ -138,7 +141,7 @@ mesh = SubResource( 10 )
 material/0 = null
 
 [node name="wheel_fr" type="VehicleWheel" parent="."]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.37, 0.051, -0.448 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.425, 0.008, -0.448 )
 use_as_steering = true
 wheel_radius = 0.169
 wheel_rest_length = 0.04
@@ -195,3 +198,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.603335, 0.289193 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.110978 )
 enabled = true
 cast_to = Vector3( 0, -0.25, 0 )
+
+[node name="avoidance_area" type="Area" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="avoidance_area"]
+shape = SubResource( 13 )

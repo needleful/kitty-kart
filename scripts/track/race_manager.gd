@@ -1,10 +1,13 @@
 extends Node
 
 signal ranking_changed(order)
+signal winner(racer, winners)
 
 export(int) var laps
 export(NodePath) var starting_line
 export(Array, NodePath) var racers
+
+var winners = []
 
 var _racers = []
 
@@ -15,8 +18,12 @@ func _ready():
 		_racers.push_back(r)
 		var _x = r.connect("mark_crossed", self, "sort_racers")
 
-func sort_racers(_r):
-	print("Sorting racers...")
+func sort_racers(r):
+	if r.lap >= laps and !(r in winners):
+		winners.push_back(r)
+		if r in _racers:
+			_racers.remove(_racers.find(r))
+			emit_signal("winner", r, winners)
 	for i in range(1, _racers.size()):
 		var a = _racers[i]
 		var j = i

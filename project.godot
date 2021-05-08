@@ -23,11 +23,23 @@ _global_script_classes=[ {
 "class": "MoveMath",
 "language": "GDScript",
 "path": "res://scripts/global/move_math.gd"
+}, {
+"base": "Resource",
+"class": "NPC_Params",
+"language": "GDScript",
+"path": "res://scripts/npc/params.gd"
+}, {
+"base": "Resource",
+"class": "Seeds",
+"language": "GDScript",
+"path": "res://scripts/npc/seeds.gd"
 } ]
 _global_script_class_icons={
 "AutoRoad": "",
 "Cart": "",
-"MoveMath": ""
+"MoveMath": "",
+"NPC_Params": "",
+"Seeds": ""
 }
 
 [application]
