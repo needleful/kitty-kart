@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scripts/npc/npc_cart.gd" type="Script" id=1]
 
@@ -97,6 +97,14 @@ surfaces/0 = {
 [sub_resource type="SphereShape" id=13]
 radius = 5.1169
 
+[sub_resource type="PrismMesh" id=14]
+size = Vector3( 0.2, 0.2, 0.2 )
+
+[sub_resource type="SpatialMaterial" id=15]
+flags_unshaded = true
+flags_no_depth_test = true
+albedo_color = Color( 0.694118, 0.113725, 0.113725, 1 )
+
 [node name="npc_cart" type="VehicleBody"]
 collision_layer = 3
 mass = 80.0
@@ -191,7 +199,7 @@ material/0 = null
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.603335, 0.289193 )
 
 [node name="weapon_slot" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.360457, 0.532634, -0.113377 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.287444, 0.629441, 0.240779 )
 
 [node name="groundCast" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.110978 )
@@ -204,3 +212,7 @@ collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="avoidance_area"]
 shape = SubResource( 13 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 14 )
+material/0 = SubResource( 15 )

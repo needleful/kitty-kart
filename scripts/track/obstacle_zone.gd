@@ -3,8 +3,7 @@ extends Area
 export(float) var radius
 
 func _ready():
-	var _x = connect("body_entered", self, "on_enter")
-	_x = connect("body_exited", self, "on_exit")
+	var _x = connect("body_exited", self, "on_exit")
 
 func _physics_process(_delta):
 	for body in get_overlapping_bodies():

@@ -7,11 +7,11 @@ export(String) var racer_name
 export (NodePath) var target_node
 export (PackedScene) var starting_weapon
 
-export(float) var horsepower: float = 300.0
+export(float) var horsepower: float = 250.0
 export(float) var steer_angle:float = PI/5
 export(float) var slide_brake:float = 10.0
 
-onready var target:Spatial = get_node(target_node)
+onready var target:Spatial
 onready var wheels = [$wheel_bl, $wheel_br, $wheel_fl, $wheel_fr]
 
 onready var last_good_pos:Vector3 = global_transform.origin
@@ -25,6 +25,8 @@ var lap = 0
 var markers = 0
 
 func _ready():
+	if target_node:
+		target = get_node(target_node)
 	if starting_weapon:
 		set_weapon(starting_weapon)
 
@@ -78,3 +80,7 @@ func reset(pos: Vector3):
 func set_weapon(wep: PackedScene):
 	weapon = wep.instance()
 	$weapon_slot.add_child(weapon)
+	var _x = weapon.connect("range_entered", self, "on_range_entered")
+
+func on_range_entered(_x):
+	pass

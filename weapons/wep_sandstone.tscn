@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/weapons/projectile_spawner.gd" type="Script" id=1]
 [ext_resource path="res://weapons/proj_sand.tscn" type="PackedScene" id=2]
@@ -6,13 +6,33 @@
 [sub_resource type="PrismMesh" id=1]
 size = Vector3( 0.2, 0.2, 1 )
 
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 5.79302, 6.46829, 5.0789 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 7.96278, 6.46829, 9.17129 )
+
 [node name="wep_sandstone" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 0.963882, -0.26633, 0, 0.26633, 0.963882, 0, 0, 0 )
 script = ExtResource( 1 )
 projectile = ExtResource( 2 )
-force = 200.0
+force = 250.0
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19209e-07, -0.00243013, 0.517377 )
 mesh = SubResource( 1 )
 material/0 = null
+
+[node name="Area" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.12559, -22.1693 )
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+shape = SubResource( 2 )
+
+[node name="CollisionShape3" type="CollisionShape" parent="Area"]
+transform = Transform( 1, 0, 0, 0, 0.965195, 0.261532, 0, -0.261532, 0.965195, 0, 10.5148, 38.0544 )
+shape = SubResource( 3 )
+
+[connection signal="body_entered" from="Area" to="." method="_on_range_entered"]

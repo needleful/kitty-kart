@@ -80,33 +80,6 @@ shadow_enabled = true
 transform = Transform( -0.103209, 0, -0.99466, 0, 1, 0, 0.99466, 0, -0.103209, 0, 2.06887, 0.275277 )
 body_node = NodePath("../player_cart")
 
-[node name="spawn_sandstone" parent="." instance=ExtResource( 8 )]
-transform = Transform( 0.122285, 0, -0.992495, 0, 1, 0, 0.992495, 0, 0.122285, 60.4351, 0.872322, -5.00644 )
-
-[node name="spawn_sandstone2" parent="." instance=ExtResource( 8 )]
-transform = Transform( 0.122285, 0, -0.992495, 0, 1, 0, 0.992495, 0, 0.122285, 59.5425, 0.872322, -9.11191 )
-
-[node name="spawn_sandstone3" parent="." instance=ExtResource( 8 )]
-transform = Transform( 0.122285, 0, -0.992495, 0, 1, 0, 0.992495, 0, 0.122285, 61.4576, 0.872322, -0.705707 )
-
-[node name="spawn_sandstone4" parent="." instance=ExtResource( 8 )]
-transform = Transform( -0.113377, 0, -0.993552, 0, 1, 0, 0.993552, 0, -0.113377, 22.4953, 28.0099, -629.373 )
-
-[node name="spawn_sandstone5" parent="." instance=ExtResource( 8 )]
-transform = Transform( -0.113377, 0, -0.993552, 0, 1, 0, 0.993552, 0, -0.113377, 22.5882, 28.0099, -633.573 )
-
-[node name="spawn_sandstone6" parent="." instance=ExtResource( 8 )]
-transform = Transform( -0.113377, 0, -0.993552, 0, 1, 0, 0.993552, 0, -0.113377, 22.4829, 28.0099, -624.952 )
-
-[node name="spawn_sandstone7" parent="." instance=ExtResource( 8 )]
-transform = Transform( 0.863721, 0, 0.50397, 0, 1, 0, -0.50397, 0, 0.863721, -371.785, -24.3504, -296.444 )
-
-[node name="spawn_sandstone8" parent="." instance=ExtResource( 8 )]
-transform = Transform( 0.863721, 0, 0.50397, 0, 1, 0, -0.50397, 0, 0.863721, -375.205, -24.3504, -294.004 )
-
-[node name="spawn_sandstone9" parent="." instance=ExtResource( 8 )]
-transform = Transform( 0.863721, 0, 0.50397, 0, 1, 0, -0.50397, 0, 0.863721, -368.237, -24.3504, -299.081 )
-
 [node name="player_cart" parent="." instance=ExtResource( 7 )]
 transform = Transform( -0.0240482, 0, -0.999711, 0, 1, 0, 0.999711, 0, -0.0240482, 0.758001, 0.78125, 5.28096 )
 
@@ -115,6 +88,7 @@ transform = Transform( -5.21243e-05, 0, -1, 0, 1, 0, 1, 0, -5.21243e-05, 0.9784,
 racer_name = "Janice"
 velocity_slow = 5.0
 velocity_slow_brake = 20.0
+avoidance = 0.3
 avoidance_radius = 2.0
 cutoff = 0.1
 
@@ -127,7 +101,6 @@ material/0 = SubResource( 4 )
 transform = Transform( -5.21243e-05, 0, -1, 0, 1, 0, 1, 0, -5.21243e-05, 0.9784, 0.712597, -0.536665 )
 racer_name = "Nathaniel"
 avoidance = 0.2
-cutoff = 1.0
 
 [node name="MeshInstance" type="MeshInstance" parent="npc_cart2"]
 transform = Transform( 1, 0, 2.91038e-11, 0, 1, 0, -2.91038e-11, 0, 1, 9.29832e-06, 0.592423, 0.177851 )
@@ -147,6 +120,33 @@ cutoff = 0.1
 transform = Transform( 1, 0, 3.63798e-11, 0, 1, 0, -3.63798e-11, 0, 1, -0.0131683, 0.575838, 0.197621 )
 mesh = SubResource( 3 )
 material/0 = SubResource( 6 )
+
+[node name="spawn_sandstone" parent="." instance=ExtResource( 8 )]
+transform = Transform( 0.214633, 0, -0.976695, 0, 1, 0, 0.976695, 0, 0.214633, 60.4263, 0.872322, -4.99993 )
+
+[node name="spawn_sandstone2" parent="." instance=ExtResource( 8 )]
+transform = Transform( 0.214633, 0, -0.976695, 0, 1, 0, 0.976695, 0, 0.214633, 59.3851, 0.872322, -11.3725 )
+
+[node name="spawn_sandstone3" parent="." instance=ExtResource( 8 )]
+transform = Transform( 0.214633, 0, -0.976695, 0, 1, 0, 0.976695, 0, 0.214633, 62.0298, 0.872322, 1.15688 )
+
+[node name="spawn_sandstone4" parent="." instance=ExtResource( 8 )]
+transform = Transform( -0.0115712, 0, -0.999933, 0, 1, 0, 0.999933, 0, -0.0115712, 22.4721, 28.0099, -629.361 )
+
+[node name="spawn_sandstone5" parent="." instance=ExtResource( 8 )]
+transform = Transform( 0.0279915, 0, -0.999608, 0, 1, 0, 0.999608, 0, 0.0279915, 22.7402, 28.0099, -635.671 )
+
+[node name="spawn_sandstone6" parent="." instance=ExtResource( 8 )]
+transform = Transform( -0.0137352, 0, -0.999906, 0, 1, 0, 0.999906, 0, -0.0137352, 22.4092, 28.0099, -622.926 )
+
+[node name="spawn_sandstone7" parent="." instance=ExtResource( 8 )]
+transform = Transform( 0.858611, 0, 0.512628, 0, 1, 0, -0.512628, 0, 0.858611, -371.537, -24.3504, -296.865 )
+
+[node name="spawn_sandstone8" parent="." instance=ExtResource( 8 )]
+transform = Transform( 0.870416, 0, 0.492317, 0, 1, 0, -0.492317, 0, 0.870416, -376.509, -23.8745, -292.947 )
+
+[node name="spawn_sandstone9" parent="." instance=ExtResource( 8 )]
+transform = Transform( 0.852202, 0, 0.523213, 0, 1, 0, -0.523213, 0, 0.852202, -366.236, -24.3504, -300.255 )
 
 [node name="AutoRoad" type="Path" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.43487, 0, 0 )

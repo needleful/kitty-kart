@@ -50,6 +50,8 @@ func get_throttle():
 	return throttle*max_throttle
 
 func get_steer():
+	if temp_target != Vector3.ZERO:
+		$MeshInstance.global_transform.origin = temp_target
 	if !reversing:
 		var base = dir.dot(global_transform.basis.x)
 		for c in avoidance_area.get_overlapping_bodies():
@@ -58,7 +60,7 @@ func get_steer():
 			if nz < 0:
 				var a = n*avoidance_radius/(1+ n.length())
 				base += (avoidance*a).dot(global_transform.basis.x)
-			else:
+			elif nz > 0.5:
 				var b = n/cutoff_radius
 				base += (cutoff*b).dot(-global_transform.basis.x)
 		return clamp(base*steer_angle, -steer_angle, steer_angle)
@@ -88,3 +90,9 @@ func get_params():
 	for k in n.keys:
 		n[k] = get(k)
 	return n
+
+func on_range_entered(_enemy):
+	if weapon and !weapon.fire(self):
+		weapon.queue_free()
+		weapon = null
+	

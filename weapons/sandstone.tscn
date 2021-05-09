@@ -1,26 +1,26 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/track/obstacle_zone.gd" type="Script" id=1]
+[ext_resource path="res://assets/textures/sandstone_mat.tres" type="Material" id=2]
 
-[sub_resource type="ConvexPolygonShape" id=6]
+[sub_resource type="ConvexPolygonShape" id=1]
 points = PoolVector3Array( -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, -1 )
 
 [sub_resource type="ConvexPolygonShape" id=2]
 points = PoolVector3Array( -0.5, 1, 1.5, 0.5, 1, -1.5, 0.5, 1, 1.5, -0.5, 1, -1.5, -0.5, -1, 1.5, 0.5, -1, -1.5, 0.5, -1, 1.5, -0.5, -1, -1.5, 0.5, 1, 1.5, -0.5, 1, -1.5, 0.5, 1, -1.5, -0.5, 1, 1.5, 0.5, -1, 1.5, -0.5, -1, -1.5, 0.5, -1, -1.5, -0.5, -1, 1.5, 0.5, 1, 1.5, -0.5, -1, 1.5, -0.5, 1, 1.5, 0.5, -1, 1.5, 0.5, 1, -1.5, -0.5, -1, -1.5, -0.5, 1, -1.5, 0.5, -1, -1.5 )
 
-[sub_resource type="ConvexPolygonShape" id=7]
+[sub_resource type="ConvexPolygonShape" id=8]
 points = PoolVector3Array( -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, -1 )
 
-[sub_resource type="CubeMesh" id=3]
+[sub_resource type="CubeMesh" id=9]
 
-[sub_resource type="CubeMesh" id=4]
+[sub_resource type="CubeMesh" id=10]
 size = Vector3( 1, 2, 3 )
 
-[sub_resource type="SphereShape" id=8]
-radius = 6.0
+[sub_resource type="SphereShape" id=6]
+radius = 10.0
 
-[sub_resource type="Animation" id=5]
-resource_name = "rise"
+[sub_resource type="Animation" id=7]
 length = 10.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("KinematicBody:translation")
@@ -68,7 +68,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.455447, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
 transform = Transform( 0.970139, 0, -0.242548, 0, 1, 0, 0.242548, 0, 0.970139, 0, -0.122069, -3.59764 )
-shape = SubResource( 6 )
+shape = SubResource( 1 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.18844 )
@@ -76,33 +76,33 @@ shape = SubResource( 2 )
 
 [node name="CollisionShape3" type="CollisionShape" parent="KinematicBody"]
 transform = Transform( 0.970139, 0, -0.242548, 0, 1, 0, 0.242548, 0, 0.970139, 1.93779, -0.165086, -1.78531 )
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="KinematicBody"]
 transform = Transform( 0.970139, 0, -0.242548, 0, 1, 0, 0.242548, 0, 0.970139, 0, -0.122069, -3.59764 )
-mesh = SubResource( 3 )
-material/0 = null
+mesh = SubResource( 9 )
+material/0 = ExtResource( 2 )
 
 [node name="MeshInstance3" type="MeshInstance" parent="KinematicBody"]
 transform = Transform( 0.970139, 0, -0.242548, 0, 1, 0, 0.242548, 0, 0.970139, 1.93779, -0.165086, -1.78531 )
-mesh = SubResource( 3 )
-material/0 = null
+mesh = SubResource( 9 )
+material/0 = ExtResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.18844 )
-mesh = SubResource( 4 )
-material/0 = null
+mesh = SubResource( 10 )
+material/0 = ExtResource( 2 )
 
 [node name="Area" type="Area" parent="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.365007, 0, -2.20021 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 1 )
-radius = 7.0
+radius = 11.0
 
 [node name="CollisionShape" type="CollisionShape" parent="KinematicBody/Area"]
-shape = SubResource( 8 )
+shape = SubResource( 6 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "rise"
-anims/rise = SubResource( 5 )
+anims/rise = SubResource( 7 )
