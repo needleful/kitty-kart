@@ -94,6 +94,7 @@ func reset(pos: Vector3):
 		global_transform = global_transform.looking_at(target.global_transform.origin, Vector3.UP)
 	linear_velocity = Vector3.DOWN
 	angular_velocity = Vector3.ZERO
+	sleeping = false
 
 func set_weapon(wep: PackedScene):
 	weapon = wep.instance()
