@@ -33,6 +33,8 @@ func _on_winner(winner, _winners):
 	n.visible = true
 	n.text = winner.racer_name
 
+func on_pause(pause):
+	visible = !pause
 
 func _on_ranking_changed(order):
 	for c in $stats/VBoxContainer.get_children():

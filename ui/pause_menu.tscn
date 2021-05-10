@@ -1,0 +1,284 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://ui/big_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scripts/ui/vertical_tabs.gd" type="Script" id=2]
+[ext_resource path="res://ui/arrow-vert.png" type="Texture" id=3]
+[ext_resource path="res://ui/arrow.png" type="Texture" id=4]
+[ext_resource path="res://ui/default_theme.tres" type="Theme" id=5]
+
+[node name="menu" type="VBoxContainer"]
+anchor_left = 0.2
+anchor_right = 0.8
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 5 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_right = 614.0
+margin_bottom = 136.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Paused"
+align = 1
+
+[node name="tabs" type="HBoxContainer" parent="."]
+margin_top = 140.0
+margin_right = 614.0
+margin_bottom = 540.0
+rect_min_size = Vector2( 0, 400 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="tabs"]
+margin_right = 87.0
+margin_bottom = 400.0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="tabs/VBoxContainer"]
+margin_top = 92.0
+margin_right = 87.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 0, 48 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+flip_v = true
+
+[node name="labels" type="VBoxContainer" parent="tabs/VBoxContainer"]
+margin_top = 144.0
+margin_right = 87.0
+margin_bottom = 263.0
+
+[node name="game" type="Button" parent="tabs/VBoxContainer/labels"]
+margin_right = 87.0
+margin_bottom = 37.0
+focus_neighbour_top = NodePath("../graphics")
+focus_neighbour_right = NodePath("../../../content/subpage/tabs/game/Control/resume")
+focus_neighbour_bottom = NodePath("../audio")
+text = "Game"
+
+[node name="audio" type="Button" parent="tabs/VBoxContainer/labels"]
+margin_top = 41.0
+margin_right = 87.0
+margin_bottom = 78.0
+focus_neighbour_top = NodePath("../game")
+focus_neighbour_right = NodePath("../../../content/subpage/tabs/audio/music/CheckBox")
+focus_neighbour_bottom = NodePath("../graphics")
+text = "Audio"
+
+[node name="graphics" type="Button" parent="tabs/VBoxContainer/labels"]
+margin_top = 82.0
+margin_right = 87.0
+margin_bottom = 119.0
+focus_neighbour_top = NodePath("../audio")
+focus_neighbour_bottom = NodePath("../game")
+toggle_mode = true
+text = "Display"
+
+[node name="TextureRect2" type="TextureRect" parent="tabs/VBoxContainer"]
+margin_top = 267.0
+margin_right = 87.0
+margin_bottom = 307.0
+rect_min_size = Vector2( 0, 40 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="content" type="Panel" parent="tabs"]
+margin_left = 91.0
+margin_right = 614.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 400, 400 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="subpage" type="HBoxContainer" parent="tabs/content"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="tabs/content/subpage"]
+margin_right = 48.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 48, 80 )
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+flip_h = true
+
+[node name="tabs" type="Control" parent="tabs/content/subpage"]
+margin_left = 52.0
+margin_right = 471.0
+margin_bottom = 400.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="game" type="HBoxContainer" parent="tabs/content/subpage/tabs"]
+margin_right = 419.0
+margin_bottom = 400.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="tabs/content/subpage/tabs/game"]
+margin_right = 137.0
+margin_bottom = 400.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="resume" type="Button" parent="tabs/content/subpage/tabs/game/Control"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -18.5
+margin_bottom = 18.5
+focus_neighbour_left = NodePath("../../../../../../VBoxContainer/labels/game")
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Resume"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control2" type="Control" parent="tabs/content/subpage/tabs/game"]
+margin_left = 141.0
+margin_right = 278.0
+margin_bottom = 400.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="restart" type="Button" parent="tabs/content/subpage/tabs/game/Control2"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -18.5
+margin_bottom = 18.5
+size_flags_horizontal = 3
+text = "Restart"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control3" type="Control" parent="tabs/content/subpage/tabs/game"]
+margin_left = 282.0
+margin_right = 419.0
+margin_bottom = 400.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="exit" type="Button" parent="tabs/content/subpage/tabs/game/Control3"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -18.5
+margin_bottom = 18.5
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Exit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="audio" type="HBoxContainer" parent="tabs/content/subpage/tabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="music" type="Control" parent="tabs/content/subpage/tabs/audio"]
+margin_right = 137.0
+margin_bottom = 400.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CheckBox" type="CheckBox" parent="tabs/content/subpage/tabs/audio/music"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -18.5
+margin_bottom = 18.5
+focus_neighbour_left = NodePath("../../../../../../VBoxContainer/labels/audio")
+pressed = true
+text = "Music"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="effects" type="Control" parent="tabs/content/subpage/tabs/audio"]
+margin_left = 141.0
+margin_right = 278.0
+margin_bottom = 400.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CheckBox" type="CheckBox" parent="tabs/content/subpage/tabs/audio/effects"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -18.5
+margin_bottom = 18.5
+pressed = true
+text = "Effects"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="master" type="Control" parent="tabs/content/subpage/tabs/audio"]
+margin_left = 282.0
+margin_right = 419.0
+margin_bottom = 400.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CheckBox" type="CheckBox" parent="tabs/content/subpage/tabs/audio/master"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -18.5
+margin_bottom = 18.5
+pressed = true
+text = "Master"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="graphics" type="HBoxContainer" parent="tabs/content/subpage/tabs"]
+visible = false
+margin_left = 211.0
+margin_right = 419.0
+margin_bottom = 400.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="tabs/content/subpage"]
+margin_left = 475.0
+margin_right = 523.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 48, 80 )
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+
+[connection signal="pressed" from="tabs/content/subpage/tabs/game/Control/resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="tabs/content/subpage/tabs/game/Control2/restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="tabs/content/subpage/tabs/game/Control3/exit" to="." method="_on_exit_pressed"]
+[connection signal="toggled" from="tabs/content/subpage/tabs/audio/music/CheckBox" to="." method="_on_music_toggled"]
+[connection signal="toggled" from="tabs/content/subpage/tabs/audio/effects/CheckBox" to="." method="_on_effects_toggled"]
+[connection signal="toggled" from="tabs/content/subpage/tabs/audio/master/CheckBox" to="." method="_on_master_toggled"]

@@ -24,7 +24,16 @@ var time_to_reset = 3
 var lap = 0
 var markers = 0
 
+var pitch_shift_min = 1
+var pitch_shift_max = 5.5
+
+var speed_factor = 60
+var throttle_min_factor = 0.3
+
+onready var engine_audio:AudioStreamPlayer3D = $engine_audio
+
 func _ready():
+	engine_audio.play(randf()*0.2)
 	if target_node:
 		target = get_node(target_node)
 	if starting_weapon:
@@ -57,13 +66,15 @@ func _physics_process(delta):
 	var throttle = get_throttle()
 	var steer = get_steer()
 	var slide = get_slide()
-	
+	var pi = clamp((abs(throttle) + throttle_min_factor)*linear_velocity.length()/speed_factor, 0, 1)
+	engine_audio.pitch_scale = lerp(pitch_shift_min, pitch_shift_max, pi)
+
 	engine_force = throttle*horsepower
 	steering = steer*steer_angle
 	for wheel in wheels:
 		wheel.brake = slide*slide_brake
 
-	if global_transform.origin.y < 0:
+	if global_transform.origin.y < 0 or global_transform.origin.y > 1000:
 		reset(last_good_pos+ Vector3.UP)
 	if global_transform.basis.y.y < 0:
 		flipped_time += delta
@@ -74,8 +85,10 @@ func _physics_process(delta):
 
 func reset(pos: Vector3):
 	global_transform.origin = pos
-	global_transform = global_transform.looking_at(target.global_transform.origin, Vector3.UP)
-	apply_central_impulse(-linear_velocity*mass/2)
+	if target:
+		global_transform = global_transform.looking_at(target.global_transform.origin, Vector3.UP)
+	linear_velocity = Vector3.DOWN
+	angular_velocity = Vector3.ZERO
 
 func set_weapon(wep: PackedScene):
 	weapon = wep.instance()

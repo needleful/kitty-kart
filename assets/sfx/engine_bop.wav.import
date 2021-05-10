@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/engine_bop.wav-89d0928ef522b02d2180c821a374c545.sample"
+
+[deps]
+
+source_file="res://assets/sfx/engine_bop.wav"
+dest_files=[ "res://.import/engine_bop.wav-89d0928ef522b02d2180c821a374c545.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

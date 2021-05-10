@@ -12,9 +12,9 @@ func _physics_process(_delta):
 				var target = body.target.global_transform.origin - o
 				var z = body.global_transform.basis.z
 				if center.dot(-z)*target.dot(-z) > 0:
-					body.set_temp_target(o + center)
+					body.set_temp_target(o + center, priority)
 				else:
-					body.set_temp_target(Vector3.ZERO)
+					body.set_temp_target(Vector3.ZERO, priority)
 
 func on_exit(body):
 	if body.has_method("set_temp_target"):

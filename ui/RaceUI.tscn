@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://ui/big_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/music/race_countdown.wav" type="AudioStream" id=2]
 [ext_resource path="res://scripts/track/race_ui.gd" type="Script" id=3]
 [ext_resource path="res://ui/ClearSans-Bold.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://ui/default_theme.tres" type="Theme" id=5]
@@ -31,7 +32,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.9, 1, 1.9, 2, 2.9, 3, 3.3, 3.6, 3.9, 4.2, 4.5, 4.8, 5.1 ),
+"times": PoolRealArray( 0, 1, 1.01, 2, 2.01, 2.99, 3.01, 3.3, 3.6, 3.9, 4.2, 4.5, 4.8, 5.1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 0.631373, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0.117647, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 1, 0.0235294, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 0.811765, 0.741176, 1 ), Color( 0.239216, 0.243137, 1, 1 ), Color( 0.835294, 0.00784314, 0.945098, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 0.309804, 0.027451, 1 ), Color( 1, 0.968627, 0, 1 ), Color( 0.0470588, 0.486275, 0, 1 ), Color( 0, 1, 0.960784, 1 ) ]
@@ -74,8 +75,34 @@ tracks/4/keys = {
 "method": "countdown_end"
 } ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("AudioStreamPlayer:stream")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 2 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("AudioStreamPlayer:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
-[node name="RaceUI" type="Control"]
+[node name="RaceUI" type="Control" groups=[
+"pause_reactive",
+]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 5 )
@@ -97,23 +124,21 @@ __meta__ = {
 [node name="Node2D" type="Node2D" parent="countdown"]
 
 [node name="Label" type="Label" parent="countdown/Node2D"]
-visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -82.5
 margin_right = 82.5
 margin_bottom = 148.0
 custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 0, 0.811765, 0.741176, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-text = "GO!"
+text = "2"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="stats" type="Panel" parent="."]
-visible = false
 margin_right = 204.0
 margin_bottom = 247.0
 __meta__ = {
@@ -296,3 +321,7 @@ text = "Name here"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Start = SubResource( 2 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+bus = "Effects"

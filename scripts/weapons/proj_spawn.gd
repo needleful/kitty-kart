@@ -8,6 +8,8 @@ func activate():
 	$Area.collision_mask = 4
 
 func on_body_entered(_body):
+	for c in $destruction.get_overlapping_bodies():
+		c.destroy()
 	var r = result.instance()
 	get_tree().current_scene.add_child(r)
 	r.global_transform.origin = global_transform.origin
