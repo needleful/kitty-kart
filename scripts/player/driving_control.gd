@@ -1,4 +1,5 @@
 extends Cart
+class_name PlayerCart
 
 onready var rear_wheels = [$wheel_bl, $wheel_br]
 onready var front_wheels = [$wheel_fl, $wheel_fr]

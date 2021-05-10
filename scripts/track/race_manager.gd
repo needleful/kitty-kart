@@ -1,6 +1,6 @@
 extends Node
 
-signal race_start()
+signal race_start(laps)
 signal ranking_changed(order)
 signal winner(racer, winners)
 
@@ -26,7 +26,7 @@ func _ready():
 	start_countdown()
 
 func start_countdown():
-	emit_signal("race_start")
+	emit_signal("race_start", laps)
 
 func start_race():
 	for r in _racers:
@@ -34,8 +34,7 @@ func start_race():
 
 func sort_racers(r):
 	if r.target == start.next:
-		r.lap += 1
-		r.markers = 1
+		r.next_lap()
 	if r.lap > laps and !(r in winners):
 		winners.push_back(r)
 		if r in _racers:
@@ -53,9 +52,12 @@ func sort_racers(r):
 
 # True if A is ahead of B
 func racer_ahead(a: Cart, b: Cart):
-	if a.lap > b.lap:
-		return true
-	elif a.lap == b.lap:
-		return a.markers > b.markers
+	if a.lap == b.lap:
+		if a.markers == b.markers:
+			var da = a.global_transform.origin - a.target.global_transform.origin
+			var db = b.global_transform.origin - b.target.global_transform.origin
+			return da.length_squared() < db.length_squared()
+		else:
+			return a.markers > b.markers
 	else:
-		return false
+		return a.lap > b.lap

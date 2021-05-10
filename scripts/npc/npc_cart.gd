@@ -26,8 +26,17 @@ var dir: Vector3
 onready var groundCast:RayCast = $groundCast
 onready var avoidance_area:Area = $avoidance_area
 
+var timer_no_progress = 0
+var min_velocity = 0.2
+
 func _physics_process(delta):
 	time_since_last_fired += delta
+	if linear_velocity.length() < min_velocity:
+		timer_no_progress += delta
+		if timer_no_progress > time_to_reset:
+			reset(last_good_pos)
+	else:
+		timer_no_progress = 0
 
 func update_target():
 	if !target:
@@ -59,7 +68,7 @@ func get_throttle():
 			if slow:
 				var speed = linear_velocity.length()
 				if speed < velocity_slow:
-					throttle = max(0.5, throttle)
+					throttle = max(throttle, 0.5)
 				else:
 					var vel_effect = velocity_slow/speed
 					throttle = clamp(throttle*vel_effect, min_throttle_slow, 1)

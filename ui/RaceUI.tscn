@@ -39,15 +39,15 @@ tracks/1/keys = {
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("countdown/Node2D:position")
-tracks/2/interp = 1
+tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 3, 5.1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 3.2, 4, 5.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, -125 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, -125 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("countdown/Node2D/Label:visible")
@@ -104,7 +104,7 @@ tracks/6/keys = {
 "pause_reactive",
 ]]
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.8
 theme = ExtResource( 5 )
 script = ExtResource( 3 )
 __meta__ = {
@@ -122,23 +122,26 @@ __meta__ = {
 }
 
 [node name="Node2D" type="Node2D" parent="countdown"]
+position = Vector2( 0, -125 )
 
 [node name="Label" type="Label" parent="countdown/Node2D"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -82.5
 margin_right = 82.5
 margin_bottom = 148.0
 custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 0, 1, 0.960784, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-text = "2"
+text = "GO!"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="stats" type="Panel" parent="."]
+visible = false
 margin_right = 204.0
 margin_bottom = 247.0
 __meta__ = {
@@ -170,8 +173,8 @@ __meta__ = {
 [node name="winners" type="Control" parent="."]
 visible = false
 anchor_right = 1.0
+anchor_bottom = 0.8
 margin_top = 31.0
-margin_bottom = 316.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -188,13 +191,13 @@ __meta__ = {
 
 [node name="list" type="HBoxContainer" parent="winners"]
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -247.0
-margin_top = -195.0
-margin_right = 249.0
-margin_bottom = 84.0
+anchor_bottom = 0.5
+margin_left = -248.0
+margin_top = -139.5
+margin_right = 248.0
+margin_bottom = 139.5
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -319,9 +322,73 @@ margin_bottom = 156.0
 size_flags_vertical = 6
 text = "Name here"
 
+[node name="HBoxContainer" type="HBoxContainer" parent="winners"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 33.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="winners/HBoxContainer"]
+margin_left = 374.0
+margin_right = 374.0
+margin_bottom = 33.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="winners/HBoxContainer"]
+margin_left = 378.0
+margin_right = 478.0
+margin_bottom = 33.0
+text = "Continue"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="spacer" type="Control" parent="winners/HBoxContainer"]
+margin_left = 482.0
+margin_right = 582.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 100, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="winners/HBoxContainer"]
+margin_left = 586.0
+margin_right = 586.0
+margin_bottom = 33.0
+
+[node name="Label" type="Label" parent="winners/HBoxContainer"]
+margin_left = 590.0
+margin_right = 650.0
+margin_bottom = 33.0
+text = "Retry"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Start = SubResource( 2 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
 bus = "Effects"
+
+[node name="player_place" type="RichTextLabel" parent="."]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -140.0
+margin_bottom = 174.0
+custom_fonts/bold_font = ExtResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "[b]X[/b]rd"
+text = "Xrd"
+
+[node name="laps" type="Label" parent="player_place"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -33.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Lap X/Y"

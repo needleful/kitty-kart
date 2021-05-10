@@ -38,7 +38,6 @@ func set_page(p: int):
 	assert(buttons.size() == subpages.size())
 	buttons[page].call_deferred("grab_focus")
 	for i in range(buttons.size()):
-		var button: Button = buttons[i]
 		var spage: Control = subpages[i]
 		spage.visible = i == page
 

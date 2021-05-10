@@ -30,6 +30,8 @@ var pitch_shift_max = 5.5
 var speed_factor = 60
 var throttle_min_factor = 0.3
 
+var possible_shortcut = null
+
 onready var engine_audio:AudioStreamPlayer3D = $engine_audio
 
 func _ready():
@@ -47,10 +49,13 @@ func set_target(p_target:Spatial):
 	last_good_pos = global_transform.origin
 
 func mark_next(current:Spatial, p_target:Spatial):
-	if target == current:
+	if current == target or current == possible_shortcut:
 		target = p_target
 		last_good_pos = current.global_transform.origin
 		markers += 1
+		var s = current.get_shortcut()
+		if s:
+			possible_shortcut = s
 		emit_signal("mark_crossed", self)
 
 func get_throttle() -> float:
@@ -97,3 +102,8 @@ func set_weapon(wep: PackedScene):
 
 func on_range_entered(_x):
 	pass
+
+func next_lap():
+	lap += 1
+	markers = 1
+	possible_shortcut = null
