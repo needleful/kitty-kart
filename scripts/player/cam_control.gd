@@ -1,6 +1,7 @@
 extends Spatial
 
 export(NodePath) var body_node
+export(bool) var process_input = true
 
 onready var arm: SpringArm = $SpringArm
 onready var cam: Camera = $SpringArm/cam_target/Camera
@@ -38,6 +39,8 @@ func _input(event):
 		camRotAccum += event.relative
 
 func _ready():
+	set_process_input(process_input)
+	$"SpringArm/cam_target/Camera/pause-cage".set_process_input(process_input)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _physics_process(delta):
@@ -92,3 +95,8 @@ func get_camera_rot()->Vector2:
 
 func _on_race_start(_laps):
 	cam.current = true
+
+
+func activate_input(_laps, active):
+	set_process_input(active)
+	$"SpringArm/cam_target/Camera/pause-cage".set_process_input(active)

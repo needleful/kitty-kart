@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scripts/npc/npc_cart.gd" type="Script" id=1]
 [ext_resource path="res://scripts/track/attraction_zone.gd" type="Script" id=2]
@@ -110,11 +110,31 @@ albedo_color = Color( 0.694118, 0.113725, 0.113725, 1 )
 [sub_resource type="BoxShape" id=16]
 extents = Vector3( 1.69173, 1, 2.64978 )
 
+[sub_resource type="Curve" id=19]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.0431818 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=20]
+curve = SubResource( 19 )
+
+[sub_resource type="ParticlesMaterial" id=17]
+lifetime_randomness = 0.45
+gravity = Vector3( 0, 0.2, 0 )
+scale_curve = SubResource( 20 )
+
+[sub_resource type="SphereMesh" id=18]
+radius = 0.2
+height = 0.4
+radial_segments = 4
+rings = 3
+
 [node name="npc_cart" type="VehicleBody"]
 collision_layer = 3
 mass = 80.0
 continuous_cd = true
 script = ExtResource( 1 )
+horsepower = 260.0
+velocity_slow = 15.0
+velocity_slow_brake = 30.0
 
 [node name="CollisionShape2" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.243859, 0.27541 )
@@ -133,7 +153,7 @@ mesh = SubResource( 4 )
 material/0 = null
 
 [node name="wheel_fl" type="VehicleWheel" parent="."]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.425, 0.008, -0.448 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.425, 0.008, -0.448 )
 use_as_steering = true
 wheel_radius = 0.169
 wheel_rest_length = 0.04
@@ -150,7 +170,7 @@ mesh = SubResource( 6 )
 material/0 = null
 
 [node name="wheel_fr" type="VehicleWheel" parent="."]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.425, 0.008, -0.448 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.425, 0.008, -0.448 )
 use_as_steering = true
 wheel_radius = 0.169
 wheel_rest_length = 0.04
@@ -167,11 +187,11 @@ mesh = SubResource( 8 )
 material/0 = null
 
 [node name="wheel_bl" type="VehicleWheel" parent="."]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.45, 0.061, 0.453 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 0.061, 0.453 )
 use_as_traction = true
 wheel_radius = 0.227
 wheel_rest_length = 0.03
-wheel_friction_slip = 3.0
+wheel_friction_slip = 4.0
 suspension_travel = 0.1
 suspension_stiffness = 100.0
 damping_compression = 3.0
@@ -184,11 +204,11 @@ mesh = SubResource( 10 )
 material/0 = null
 
 [node name="wheel_br" type="VehicleWheel" parent="."]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.45, 0.061, 0.453 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 0.061, 0.453 )
 use_as_traction = true
 wheel_radius = 0.227
 wheel_rest_length = 0.03
-wheel_friction_slip = 3.0
+wheel_friction_slip = 4.0
 suspension_travel = 0.1
 suspension_stiffness = 100.0
 damping_compression = 3.0
@@ -240,3 +260,19 @@ unit_size = 4.0
 autoplay = true
 bus = "Effects"
 doppler_tracking = 2
+
+[node name="Particles" type="Particles" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.492787, -0.0517633, 0.489348 )
+emitting = false
+visibility_aabb = AABB( -3.66393, -1.98717, -4, 7.32786, 3.97433, 8 )
+local_coords = false
+process_material = SubResource( 17 )
+draw_pass_1 = SubResource( 18 )
+
+[node name="Particles2" type="Particles" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.452778, -0.0517633, 0.489348 )
+emitting = false
+visibility_aabb = AABB( -3.66393, -1.98717, -4, 7.32786, 3.97433, 8 )
+local_coords = false
+process_material = SubResource( 17 )
+draw_pass_1 = SubResource( 18 )

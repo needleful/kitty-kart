@@ -23,14 +23,22 @@ var time_to_reset = 3
 
 var lap = 0
 var markers = 0
+var mandatory_markers = 0
 
 var pitch_shift_min = 1
 var pitch_shift_max = 5.5
 
-var speed_factor = 60
+var speed_factor = 50
 var throttle_min_factor = 0.3
+var speed_skid = 2
+var speed_downshift = 10
+var speed_upshift = 20
+var speed_upshift2 = 32
+var speed_downshift2 = 24
+var gear = 0
+var gear_factor = 0.3
 
-var possible_shortcut = null
+var mandatory_next:Spatial = null
 
 onready var engine_audio:AudioStreamPlayer3D = $engine_audio
 
@@ -48,14 +56,14 @@ func set_target(p_target:Spatial):
 	target = p_target
 	last_good_pos = global_transform.origin
 
-func mark_next(current:Spatial, p_target:Spatial):
-	if current == target or current == possible_shortcut:
+func mark_next(current:Spatial, p_target:Spatial, p_mandatory:Spatial):
+	if current == target or current == mandatory_next:
 		target = p_target
 		last_good_pos = current.global_transform.origin
 		markers += 1
-		var s = current.get_shortcut()
-		if s:
-			possible_shortcut = s
+		if current.mandatory:
+			mandatory_next = p_mandatory
+			mandatory_markers += 1
 		emit_signal("mark_crossed", self)
 
 func get_throttle() -> float:
@@ -71,10 +79,21 @@ func _physics_process(delta):
 	var throttle = get_throttle()
 	var steer = get_steer()
 	var slide = get_slide()
-	var pi = clamp((abs(throttle) + throttle_min_factor)*linear_velocity.length()/speed_factor, 0, 1)
+	
+	var speed = linear_velocity.length()
+	if gear == 0 and speed > speed_upshift:
+		gear = 1
+	elif gear == 1 and speed < speed_downshift:
+		gear = 0
+	elif gear == 1 and speed > speed_upshift2:
+		gear = 2
+	elif gear == 2 and speed < speed_downshift2:
+		gear = 1
+	var pi = (1-gear_factor*gear)*clamp(
+		(abs(throttle) + throttle_min_factor)*speed/speed_factor, 0, 1)
 	engine_audio.pitch_scale = lerp(pitch_shift_min, pitch_shift_max, pi)
 
-	engine_force = throttle*horsepower
+	engine_force = -throttle*horsepower
 	steering = steer*steer_angle
 	for wheel in wheels:
 		wheel.brake = slide*slide_brake
@@ -87,6 +106,9 @@ func _physics_process(delta):
 			reset(global_transform.origin + Vector3.UP*5)
 	else:
 		flipped_time = 0
+	var skid = abs(linear_velocity.dot(global_transform.basis.x)) > speed_skid
+	$Particles.emitting = skid and $wheel_bl.is_in_contact()
+	$Particles2.emitting = skid and $wheel_br.is_in_contact()
 
 func reset(pos: Vector3):
 	global_transform.origin = pos
@@ -107,4 +129,3 @@ func on_range_entered(_x):
 func next_lap():
 	lap += 1
 	markers = 1
-	possible_shortcut = null

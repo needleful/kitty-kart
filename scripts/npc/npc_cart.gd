@@ -4,7 +4,7 @@ export(float) var max_throttle: float = 1.0
 export(float) var velocity_slow: float = 7.0
 export(float) var velocity_slow_brake: float = 25
 export(float) var min_throttle_slow: float = 0.1
-export(float) var throttle_reverse: float = -0.5
+export(float) var throttle_reverse: float = -0.7
 export(float) var slow_slide: float = 1
 
 export(float) var avoidance: float = 0.1
@@ -53,7 +53,7 @@ func update_target():
 		if racer != self:
 			var diff = racer.global_transform.origin - global_transform.origin
 			var c = -diff.slide(global_transform.basis.z).normalized()
-			var q = clamp(avoidance_radius/(diff.length()), 0, avoidance_sensitivity)
+			var q = clamp(avoidance_radius/(diff.length() + 0.0001), 0, avoidance_sensitivity)
 			dir += c*q
 	dir = dir.normalized()
 	$MeshInstance.transform.origin = dir*4

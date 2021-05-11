@@ -16,6 +16,7 @@ onready var start = get_node(starting_line)
 var winners = []
 
 var _racers = []
+var race_started = false
 
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
@@ -25,6 +26,7 @@ func _input(event):
 		get_tree().set_input_as_handled()
 
 func _ready():
+	$"/root/GameManager".clear_results()
 	for node in racers:
 		var r = get_node(node)
 		assert(r)
@@ -36,6 +38,7 @@ func start_countdown():
 	emit_signal("race_start", laps)
 
 func start_race():
+	race_started = true
 	for r in _racers:
 		if !r.target:
 			r.set_target(start)
@@ -48,6 +51,7 @@ func sort_racers(r):
 		if r in _racers:
 			_racers.remove(_racers.find(r))
 			emit_signal("winner", r, winners)
+		$"/root/GameManager".add_winner(r.racer_name)
 	for i in range(1, _racers.size()):
 		var a = _racers[i]
 		var j = i
@@ -60,15 +64,16 @@ func sort_racers(r):
 
 # True if A is ahead of B
 func racer_ahead(a: Cart, b: Cart):
-	if a.lap == b.lap:
-		if a.markers == b.markers:
-			var da = a.global_transform.origin - a.target.global_transform.origin
-			var db = b.global_transform.origin - b.target.global_transform.origin
-			return da.length_squared() < db.length_squared()
-		else:
-			return a.markers > b.markers
-	else:
+	if a.lap != b.lap:
 		return a.lap > b.lap
+	if a.mandatory_markers != b.mandatory_markers:
+		return a.mandatory_markers > b.mandatory_markers
+	if a.markers != b.markers:
+		return a.markers > b.markers
+	else:
+		var da = a.global_transform.origin - a.target.global_transform.origin
+		var db = b.global_transform.origin - b.target.global_transform.origin
+		return da.length_squared() < db.length_squared()
 
 func _on_next_track():
 	$"/root/GameManager".next_scene()
@@ -76,5 +81,10 @@ func _on_next_track():
 func _on_restart():
 	var _x = get_tree().reload_current_scene()
 
-func _on_start_crossed():
+func _on_start_crossed(racer):
+	if !race_started:
+		$"/root/GameManager".add_cheat_event({
+				"cheat":"early_start",
+				"racer":racer.racer_name
+			})
 	start_race()

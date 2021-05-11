@@ -12,6 +12,9 @@ export(Array, PackedScene) var tracks
 var current_scene:int = 0
 var mode = Mode.Story
 
+var race_results = []
+var race_cheat_events = []
+
 func shuffle():
 	tracks.shuffle()
 
@@ -22,6 +25,18 @@ func start(shuffle:bool = false):
 	else:
 		mode = Mode.Story
 	get_scene(0)
+
+func clear_results():
+	race_results = []
+	race_cheat_events = []
+
+func add_cheat_event(cheat:Dictionary):
+	print("CHEATER! %s for %s" % [cheat["cheat"], cheat["racer"]])
+	race_cheat_events.push_back(cheat)
+
+func add_winner(racer_name):
+	print("Winner: ", racer_name)
+	race_results.push_back(racer_name)
 
 func next_scene():
 	get_scene(current_scene + 1)
