@@ -32,7 +32,7 @@ _global_script_classes=[ {
 "base": "Cart",
 "class": "PlayerCart",
 "language": "GDScript",
-"path": "res://scripts/player/driving_control.gd"
+"path": "res://scripts/player/player_cart.gd"
 }, {
 "base": "Resource",
 "class": "Seeds",
@@ -52,8 +52,12 @@ _global_script_class_icons={
 
 config/name="Kitty's 100% Legitimate No-Cheating-Allowed Kart Racer"
 config/description="Kitty's been invited to race, and there's a whole litany of rules to the race!"
-run/main_scene="res://scenes/babby_circuit.tscn"
+run/main_scene="res://ui/main_menu.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+GameManager="*res://game_manager.tscn"
 
 [display]
 

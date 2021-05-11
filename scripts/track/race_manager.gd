@@ -4,7 +4,7 @@ signal race_start(laps)
 signal ranking_changed(order)
 signal winner(racer, winners)
 
-export (float) var time_to_start = 3.0
+export(String) var track_name = "Track"
 
 var start_timer = Timer.new() 
 
@@ -17,20 +17,28 @@ var winners = []
 
 var _racers = []
 
+func _input(event):
+	if event.is_action_pressed("ui_accept"):
+		start_countdown()
+		set_process_input(false)
+	else:
+		get_tree().set_input_as_handled()
+
 func _ready():
 	for node in racers:
 		var r = get_node(node)
 		assert(r)
 		_racers.push_back(r)
 		var _x = r.connect("mark_crossed", self, "sort_racers")
-	start_countdown()
+	get_tree().call_group("race_ui", "set_race_stats", track_name, laps, _racers)
 
 func start_countdown():
 	emit_signal("race_start", laps)
 
 func start_race():
 	for r in _racers:
-		r.set_target(start)
+		if !r.target:
+			r.set_target(start)
 
 func sort_racers(r):
 	if r.target == start.next:
@@ -61,3 +69,12 @@ func racer_ahead(a: Cart, b: Cart):
 			return a.markers > b.markers
 	else:
 		return a.lap > b.lap
+
+func _on_next_track():
+	$"/root/GameManager".next_scene()
+
+func _on_restart():
+	var _x = get_tree().reload_current_scene()
+
+func _on_start_crossed():
+	start_race()

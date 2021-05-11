@@ -1,11 +1,20 @@
 extends Control
 
 signal go
+signal next_track
+signal restart
 
 var winners = 0
 var laps = 1
 
+func _input(event):
+	if event.is_action_pressed("ui_accept"):
+		emit_signal("next_track")
+	elif event.is_action_pressed("ui_cancel"):
+		emit_signal("restart")
+
 func _ready():
+	set_process_input(false)
 	for c in $winners/list/labels.get_children():
 		if c is Control:
 			c.visible = false
@@ -13,9 +22,21 @@ func _ready():
 		if c is Control:
 			c.visible = false
 
-func _on_race_start(p_laps):
-	$AnimationPlayer.play("Start")
+func set_race_stats(track_name, p_laps, racers):
+	$stats.visible = true
 	laps = p_laps
+	$stats/track.text = track_name
+	$stats/panel/box/laps/value.text = str(laps)
+	for c in $stats/panel/box/racers/value.get_children():
+		c.queue_free()
+	for r in racers:
+		var l = Label.new()
+		l.text = r.racer_name
+		$stats/panel/box/racers/value.add_child(l)
+
+func _on_race_start(_l):
+	$stats.visible = false
+	$AnimationPlayer.play("Start")
 
 func countdown_end():
 	emit_signal("go")
@@ -33,14 +54,15 @@ func _on_winner(winner, _winners):
 		n = get_node("winners/list/names/racer"+str(winners))
 	l.visible = true
 	n.visible = true
+	if winner is PlayerCart:
+		set_process_input(true)
+		$winners/player_options.visible = true
 	n.text = winner.racer_name
 
 func on_pause(pause):
 	visible = !pause
 
 func _on_ranking_changed(order):
-	for c in $stats/VBoxContainer.get_children():
-		c.queue_free()
 	var i = 0
 	for o in order:
 		i += 1

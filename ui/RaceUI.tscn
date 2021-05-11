@@ -1,14 +1,11 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://ui/big_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://ui/fonts/big_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/music/race_countdown.wav" type="AudioStream" id=2]
 [ext_resource path="res://scripts/track/race_ui.gd" type="Script" id=3]
-[ext_resource path="res://ui/ClearSans-Bold.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://ui/default_theme.tres" type="Theme" id=5]
-
-[sub_resource type="DynamicFont" id=1]
-size = 72
-font_data = ExtResource( 4 )
+[ext_resource path="res://ui/sprites/prompt_a.png" type="Texture" id=6]
+[ext_resource path="res://ui/sprites/prompt_b.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=2]
 resource_name = "Start"
@@ -47,7 +44,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 3.2, 4, 5.1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, -125 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, -200 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("countdown/Node2D/Label:visible")
@@ -102,7 +99,9 @@ tracks/6/keys = {
 
 [node name="RaceUI" type="Control" groups=[
 "pause_reactive",
+"race_ui",
 ]]
+pause_mode = 1
 anchor_right = 1.0
 anchor_bottom = 0.8
 theme = ExtResource( 5 )
@@ -115,60 +114,156 @@ __meta__ = {
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -20.0
+margin_top = 43.0
 margin_right = 20.0
-margin_bottom = 40.0
+margin_bottom = 66.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Node2D" type="Node2D" parent="countdown"]
-position = Vector2( 0, -125 )
 
 [node name="Label" type="Label" parent="countdown/Node2D"]
 visible = false
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -82.5
-margin_right = 82.5
+margin_left = -122.0
+margin_right = 122.0
 margin_bottom = 148.0
 custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 0, 1, 0.960784, 1 )
+custom_colors/font_color = Color( 1, 0.631373, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-text = "GO!"
+text = "3"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="stats" type="Panel" parent="."]
-visible = false
-margin_right = 204.0
-margin_bottom = 247.0
+[node name="stats" type="VBoxContainer" parent="."]
+margin_left = 51.0
+margin_top = 24.0
+margin_right = 789.0
+margin_bottom = 379.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label2" type="Label" parent="stats"]
-margin_right = 40.0
-margin_bottom = 14.0
+[node name="track" type="Label" parent="stats"]
+margin_right = 738.0
+margin_bottom = 129.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Track name"
 
-[node name="Label" type="Label" parent="stats"]
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 150.0
-margin_bottom = 19.0
-text = "Racers"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="stats"]
+[node name="Panel" type="Panel" parent="stats/track"]
+show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 24.0
-margin_right = -5.0
-margin_bottom = -5.0
+margin_top = -9.0
+margin_bottom = -31.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="panel" type="Panel" parent="stats"]
+margin_top = 133.0
+margin_right = 450.0
+margin_bottom = 583.0
+rect_min_size = Vector2( 450, 450 )
+size_flags_horizontal = 0
+
+[node name="box" type="VBoxContainer" parent="stats/panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 20.0
+margin_right = -10.0
+margin_bottom = -20.0
+rect_min_size = Vector2( 0, 300 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="laps" type="HBoxContainer" parent="stats/panel/box"]
+margin_right = 430.0
+margin_bottom = 41.0
+
+[node name="Label" type="Label" parent="stats/panel/box/laps"]
+margin_right = 200.0
+margin_bottom = 41.0
+rect_min_size = Vector2( 200, 0 )
+text = "Laps:"
+
+[node name="value" type="Label" parent="stats/panel/box/laps"]
+margin_left = 204.0
+margin_right = 295.0
+margin_bottom = 41.0
+text = "Value"
+
+[node name="line" type="Control" parent="stats/panel/box"]
+margin_top = 45.0
+margin_right = 430.0
+margin_bottom = 45.0
+
+[node name="Line2D" type="Line2D" parent="stats/panel/box/line"]
+points = PoolVector2Array( 0, 0, 399, 0 )
+width = 2.0
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="racers" type="HBoxContainer" parent="stats/panel/box"]
+margin_top = 49.0
+margin_right = 430.0
+margin_bottom = 410.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="stats/panel/box/racers"]
+margin_right = 200.0
+margin_bottom = 361.0
+rect_min_size = Vector2( 200, 0 )
+size_flags_vertical = 7
+text = "Racers:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="value" type="VBoxContainer" parent="stats/panel/box/racers"]
+margin_left = 204.0
+margin_right = 430.0
+margin_bottom = 361.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="prompt" type="HBoxContainer" parent="stats/panel"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -225.0
+margin_right = 225.0
+margin_bottom = 128.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="stats/panel/prompt"]
+margin_left = 75.0
+margin_right = 203.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="stats/panel/prompt"]
+margin_left = 207.0
+margin_top = 43.0
+margin_right = 375.0
+margin_bottom = 84.0
+text = "Start Race"
 
 [node name="winners" type="Control" parent="."]
 visible = false
@@ -182,7 +277,7 @@ __meta__ = {
 [node name="Label" type="Label" parent="winners"]
 anchor_right = 1.0
 margin_bottom = 98.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = ExtResource( 1 )
 text = "Winner!"
 align = 1
 __meta__ = {
@@ -322,7 +417,8 @@ margin_bottom = 156.0
 size_flags_vertical = 6
 text = "Name here"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="winners"]
+[node name="player_options" type="HBoxContainer" parent="winners"]
+visible = false
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -332,38 +428,50 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect2" type="TextureRect" parent="winners/HBoxContainer"]
-margin_left = 374.0
-margin_right = 374.0
-margin_bottom = 33.0
+[node name="TextureRect2" type="TextureRect" parent="winners/player_options"]
+margin_left = 211.0
+margin_right = 339.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 0 )
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label2" type="Label" parent="winners/HBoxContainer"]
-margin_left = 378.0
-margin_right = 478.0
-margin_bottom = 33.0
+[node name="Label2" type="Label" parent="winners/player_options"]
+margin_left = 343.0
+margin_top = 43.0
+margin_right = 487.0
+margin_bottom = 84.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Continue"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="spacer" type="Control" parent="winners/HBoxContainer"]
-margin_left = 482.0
-margin_right = 582.0
-margin_bottom = 33.0
+[node name="spacer" type="Control" parent="winners/player_options"]
+margin_left = 491.0
+margin_right = 591.0
+margin_bottom = 128.0
 rect_min_size = Vector2( 100, 0 )
 
-[node name="TextureRect" type="TextureRect" parent="winners/HBoxContainer"]
-margin_left = 586.0
-margin_right = 586.0
-margin_bottom = 33.0
+[node name="TextureRect" type="TextureRect" parent="winners/player_options"]
+margin_left = 595.0
+margin_right = 723.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
 
-[node name="Label" type="Label" parent="winners/HBoxContainer"]
-margin_left = 590.0
-margin_right = 650.0
-margin_bottom = 33.0
+[node name="Label" type="Label" parent="winners/player_options"]
+margin_left = 727.0
+margin_top = 43.0
+margin_right = 813.0
+margin_bottom = 84.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Retry"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -377,18 +485,24 @@ bus = "Effects"
 visible = false
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -140.0
-margin_bottom = 174.0
+margin_left = -163.0
+margin_top = 42.0
+margin_right = -20.0
+margin_bottom = 227.0
 custom_fonts/bold_font = ExtResource( 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
 bbcode_text = "[b]X[/b]rd"
 text = "Xrd"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="laps" type="Label" parent="player_place"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -33.0
+margin_top = -77.0
+margin_bottom = 2.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Lap X/Y"

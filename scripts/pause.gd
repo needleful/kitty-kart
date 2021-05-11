@@ -1,5 +1,7 @@
 extends Spatial
 
+export(PackedScene) var main_menu : PackedScene
+
 func _input(event):
 	if event.is_action_pressed("pause"):
 		set_pause(!get_tree().paused)
@@ -40,4 +42,8 @@ func _on_restart():
 	var _x = get_tree().reload_current_scene()
 
 func _on_exit():
-	get_tree().quit()
+	set_pause(false)
+	if main_menu:
+		var _x = get_tree().change_scene_to(main_menu)
+	else:
+		get_tree().quit()

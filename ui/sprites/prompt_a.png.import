@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/arrow-vert.png-6a460f0b415ee293d8c77c1d875e3ede.stex"
+path="res://.import/prompt_a.png-b194675e29c385628b87327d028f8e46.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/arrow-vert.png"
-dest_files=[ "res://.import/arrow-vert.png-6a460f0b415ee293d8c77c1d875e3ede.stex" ]
+source_file="res://ui/sprites/prompt_a.png"
+dest_files=[ "res://.import/prompt_a.png-b194675e29c385628b87327d028f8e46.stex" ]
 
 [params]
 

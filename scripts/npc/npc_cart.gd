@@ -90,7 +90,9 @@ func get_steer():
 	else:
 		return steer_angle
 
-func get_brake():
+func get_slide():
+	if !target:
+		return 1.0
 	if dir.dot(linear_velocity) <= velocity_brake:
 		return 1.0
 	elif slow and linear_velocity.length_squared() > velocity_slow_brake*velocity_slow_brake:

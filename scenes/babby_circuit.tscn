@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scripts/track/slow_zone.gd" type="Script" id=1]
 [ext_resource path="res://scripts/track/auto_road.gd" type="Script" id=2]
@@ -15,6 +15,36 @@
 [ext_resource path="res://default_env.tres" type="Environment" id=13]
 [ext_resource path="res://assets/music/race.ogg" type="AudioStream" id=14]
 [ext_resource path="res://scripts/music.gd" type="Script" id=15]
+
+[sub_resource type="Animation" id=10]
+resource_name = "look_loop"
+length = 62.0
+loop = true
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 4, 9, 16, 22, 28, 38, 46, 55, 62 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -12.0103, 7.34948, 0.523657 ), Vector3( 9.0692, 2.48497, 0.523656 ), Vector3( 108.867, 10.1056, -38.2574 ), Vector3( 149.765, 70.6021, -190.439 ), Vector3( 216.563, 63.4885, -370.175 ), Vector3( 126.294, 95.0791, -641.598 ), Vector3( -481.764, 18.8212, -546.011 ), Vector3( -341.294, -15.2154, -254.841 ), Vector3( -98.1866, 2.62133, -30.8488 ), Vector3( -12.0103, 7.34948, 0.523657 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 2
+tracks/1/loop_wrap = false
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 3, 7, 12, 17, 21, 25, 30, 35, 42, 49, 55, 62 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -23.362, -90, 1.08181e-06 ), Vector3( -10.2713, -94.5419, 5.7768e-07 ), Vector3( 0.580998, -90, 6.53743e-08 ), Vector3( 13.5654, -18.9669, -4.02916 ), Vector3( -17.327, -17.329, 0 ), Vector3( -11.0614, 34.0676, -4.42842 ), Vector3( -6.275, 64.451, -6.125 ), Vector3( -2.10191, 108.693, 4.19483 ), Vector3( -29.49, 163.367, 3.299 ), Vector3( -11.166, 226.043, 0 ), Vector3( 5.191, 220, 0 ), Vector3( 5.468, 260, 4.917 ), Vector3( -23.362, 270, 0 ) ]
+}
 
 [sub_resource type="SphereMesh" id=1]
 radius = 0.5
@@ -57,9 +87,23 @@ extents = Vector3( 25.7114, 12.1655, 60.4001 )
 [node name="Spatial" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 48.6763, 0 )
 script = ExtResource( 12 )
-laps = 3
-starting_line = NodePath("AutoRoad/marker23")
+track_name = "Babby Circuit"
+laps = 1
+starting_line = NodePath("AutoRoad/start")
 racers = [ NodePath("npc_cart2"), NodePath("npc_cart3"), NodePath("player_cart"), NodePath("npc_cart") ]
+
+[node name="level_camera" type="Camera" parent="."]
+transform = Transform( 0.966681, 0.0173385, -0.255397, -0.0622122, 0.983704, -0.168691, 0.24831, 0.17896, 0.952006, 133.435, 46.4273, -116.88 )
+current = true
+near = 0.1
+far = 8192.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="level_camera"]
+autoplay = "look_loop"
+anims/look_loop = SubResource( 10 )
+
+[node name="Listener" type="Listener" parent="level_camera"]
+current = true
 
 [node name="music" type="AudioStreamPlayer" parent="." groups=[
 "pause_reactive",
@@ -137,10 +181,13 @@ body_node = NodePath("../player_cart")
 
 [node name="player_cart" parent="." instance=ExtResource( 7 )]
 transform = Transform( -0.0240482, 0, -0.999711, 0, 1, 0, 0.999711, 0, -0.0240482, 0.758001, 0.78125, 5.28096 )
+target_node = NodePath("../AutoRoad/start")
+force_brake = true
 
 [node name="npc_cart" parent="." instance=ExtResource( 9 )]
 transform = Transform( -5.21243e-05, 0, -1, 0, 1, 0, 1, 0, -5.21243e-05, 0.9784, 0.712597, 2.48395 )
 racer_name = "Janice"
+horsepower = 270.0
 velocity_slow = 5.0
 velocity_slow_brake = 20.0
 turn_aggression = 0.9
@@ -231,11 +278,11 @@ transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, -4.55597,
 shape = SubResource( 7 )
 
 [node name="marker3" parent="AutoRoad" instance=ExtResource( 10 )]
-transform = Transform( 0.013788, 0, 0.999904, 0, 1, 0, -0.999904, 0, 0.013788, 182.921, 20.0449, -315.393 )
+transform = Transform( 0.013788, 0, 0.999904, 0, 1, 0, -0.999904, 0, 0.013788, 182.921, 20.0449, -328.386 )
 next_marker = NodePath("../marker12")
 
 [node name="CollisionShape3" type="CollisionShape" parent="AutoRoad/marker3"]
-transform = Transform( 1, 0, 7.45058e-08, 0, 1, 0, -7.45058e-08, 0, 1, -0.179199, 4.93179, 0.813171 )
+transform = Transform( 1, 0, 7.45058e-08, 0, 1, 0, -7.45058e-08, 0, 1, -13.6047, 4.93179, 0.998276 )
 shape = SubResource( 7 )
 
 [node name="marker12" parent="AutoRoad" instance=ExtResource( 10 )]
@@ -251,23 +298,23 @@ transform = Transform( -0.592351, 0, 0.80568, 0, 1, 0, -0.80568, 0, -0.592351, 1
 next_marker = NodePath("../marker21")
 
 [node name="CollisionShape3" type="CollisionShape" parent="AutoRoad/marker4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.66714, 8.36163, 1.00293 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.66714, 8.36163, 1.00296 )
 shape = SubResource( 7 )
 
 [node name="marker21" parent="AutoRoad" instance=ExtResource( 10 )]
-transform = Transform( -0.790882, 0, 0.611969, 0, 1, 0, -0.611969, 0, -0.790882, 72.0351, 30.336, -615.618 )
+transform = Transform( -0.790882, 0, 0.611969, 0, 1, 0, -0.611969, 0, -0.790882, 70.069, 30.336, -617.139 )
 next_marker = NodePath("../marker17")
 
 [node name="CollisionShape3" type="CollisionShape" parent="AutoRoad/marker21"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.88333, 8.36163, 1.5542 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.20914, 8.36163, 1.55408 )
 shape = SubResource( 7 )
 
 [node name="marker17" parent="AutoRoad" instance=ExtResource( 10 )]
-transform = Transform( -0.985128, 0, 0.171826, 0, 1, 0, -0.171826, 0, -0.985128, 44.9896, 29.5195, -625.399 )
+transform = Transform( -0.985128, 0, 0.171826, 0, 1, 0, -0.171826, 0, -0.985128, 42.662, 29.5195, -625.805 )
 next_marker = NodePath("../marker13")
 
 [node name="CollisionShape3" type="CollisionShape" parent="AutoRoad/marker17"]
-transform = Transform( 1, 0, 5.96046e-08, 0, 1, 0, -5.96046e-08, 0, 1, -4.6171, 8.36163, 0.186584 )
+transform = Transform( 1, 0, 5.96046e-08, 0, 1, 0, -5.96046e-08, 0, 1, -6.96857, 8.36163, 0.186646 )
 shape = SubResource( 7 )
 
 [node name="marker13" parent="AutoRoad" instance=ExtResource( 10 )]
@@ -275,15 +322,15 @@ transform = Transform( -0.999368, 0, -0.0355628, 0, 1, 0, 0.0355628, 0, -0.99936
 next_marker = NodePath("../marker5")
 
 [node name="CollisionShape3" type="CollisionShape" parent="AutoRoad/marker13"]
-transform = Transform( 1, 0, -3.72529e-08, 0, 1, 0, 3.72529e-08, 0, 1, -7.12385, 8.36163, 0.922363 )
+transform = Transform( 1, 0, -4.09782e-08, 0, 1, 0, 4.09782e-08, 0, 1, -7.12385, 8.36163, 0.922363 )
 shape = SubResource( 7 )
 
 [node name="marker5" parent="AutoRoad" instance=ExtResource( 10 )]
-transform = Transform( -0.982726, 0, -0.185066, 0, 1, 0, 0.185066, 0, -0.982726, -114.485, 12.5144, -612.898 )
+transform = Transform( -0.982726, 0, -0.185066, 0, 1, 0, 0.185066, 0, -0.982726, -122.323, 12.5144, -611.422 )
 next_marker = NodePath("../marker6")
 
 [node name="CollisionShape3" type="CollisionShape" parent="AutoRoad/marker5"]
-transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, -3.25616, 8.31604, -0.546082 )
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, -8.81471, 8.31604, -0.546082 )
 shape = SubResource( 7 )
 
 [node name="marker6" parent="AutoRoad" instance=ExtResource( 10 )]
@@ -355,7 +402,7 @@ transform = Transform( 0.732662, 0, -0.680592, 0, 1, 0, 0.680592, 0, 0.732662, -
 next_marker = NodePath("../marker8")
 
 [node name="CollisionShape3" type="CollisionShape" parent="AutoRoad/marker20"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.18408, 8.21017, 1.85939 )
+transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, -5.18408, 8.21017, 1.85939 )
 shape = SubResource( 7 )
 
 [node name="marker8" parent="AutoRoad" instance=ExtResource( 10 )]
@@ -376,22 +423,22 @@ shape = SubResource( 7 )
 
 [node name="marker9" parent="AutoRoad" instance=ExtResource( 10 )]
 transform = Transform( 0.969093, 0, -0.246695, 0, 1, 0, 0.246695, 0, 0.969093, -9.50121, 2.46745, 0.0840471 )
-next_marker = NodePath("../marker23")
+next_marker = NodePath("../start")
 
 [node name="CollisionShape3" type="CollisionShape" parent="AutoRoad/marker9"]
 transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, -6.77204, 8.21017, 1.52678 )
 shape = SubResource( 7 )
 
-[node name="marker23" parent="AutoRoad" instance=ExtResource( 10 )]
-transform = Transform( 0.99948, 0, 0.0322302, 0, 1, 0, -0.0322302, 0, 0.99948, 22.1563, 2.46745, 0.498689 )
+[node name="start" parent="AutoRoad" instance=ExtResource( 10 )]
+transform = Transform( 0.99948, 0, 0.0322302, 0, 1, 0, -0.0322302, 0, 0.99948, 30.3669, 2.46745, 0.233921 )
 next_marker = NodePath("../marker")
 
-[node name="CollisionShape3" type="CollisionShape" parent="AutoRoad/marker23"]
-transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, -5.75567, 8.21017, -0.185603 )
+[node name="CollisionShape3" type="CollisionShape" parent="AutoRoad/start"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, -5.63251, 8.21017, -0.3484 )
 shape = SubResource( 7 )
 
-[node name="Spatial" parent="AutoRoad/marker23" instance=ExtResource( 6 )]
-transform = Transform( -8.9407e-08, 0, -2, 0, 2, 0, 2, 0, -8.9407e-08, -5.75567, -2.41539, -0.185604 )
+[node name="Spatial" parent="AutoRoad/start" instance=ExtResource( 6 )]
+transform = Transform( -8.9407e-08, 0, -2, 0, 2, 0, 2, 0, -8.9407e-08, -10.8041, -2.41539, -0.348401 )
 
 [node name="slow_zone" type="Area" parent="AutoRoad"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 102.25, 26.5908, -581.425 )
@@ -419,9 +466,14 @@ transform = Transform( 0.615319, -0.151598, -0.773564, 0.0825454, 0.98833, -0.12
 shape = SubResource( 9 )
 
 [connection signal="race_start" from="." to="RaceUI" method="_on_race_start"]
+[connection signal="race_start" from="." to="player_cart" method="_on_race_start"]
+[connection signal="race_start" from="." to="player_camera" method="_on_race_start"]
 [connection signal="ranking_changed" from="." to="RaceUI" method="_on_ranking_changed"]
 [connection signal="winner" from="." to="RaceUI" method="_on_winner"]
 [connection signal="go" from="RaceUI" to="music" method="play"]
 [connection signal="go" from="RaceUI" to="." method="start_race"]
+[connection signal="next_track" from="RaceUI" to="." method="_on_next_track"]
+[connection signal="restart" from="RaceUI" to="." method="_on_restart"]
+[connection signal="crossed" from="AutoRoad/start" to="." method="_on_start_crossed"]
 
 [editable path="RaceUI"]

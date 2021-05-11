@@ -89,3 +89,6 @@ func get_camera_rot()->Vector2:
 		-sign(c.y)*pow(abs(c.y), 2.6)
 	)
 	return ret + c*SNS_CONTROLLER
+
+func _on_race_start(_laps):
+	cam.current = true
