@@ -1,7 +1,8 @@
 extends Cart
 
-export(float) var max_throttle: float = 1.0
-export(float) var velocity_slow: float = 7.0
+export(float) var base_throttle: float = 0.8
+export(float) var place_throttle_bonus: float = 0.1
+export(float) var velocity_slow: float = 10.0
 export(float) var velocity_slow_brake: float = 25
 export(float) var min_throttle_slow: float = 0.1
 export(float) var throttle_reverse: float = -0.7
@@ -25,6 +26,8 @@ var dir: Vector3
 
 onready var groundCast:RayCast = $groundCast
 onready var avoidance_area:Area = $avoidance_area
+
+var max_throttle = base_throttle
 
 var timer_no_progress = 0
 var min_velocity = 3.0
@@ -82,6 +85,9 @@ func get_throttle():
 		else:
 			throttle = -1
 	return throttle*max_throttle
+
+func on_rank(i):
+	max_throttle = base_throttle + place_throttle_bonus*i
 
 func get_steer():
 	if !reversing:

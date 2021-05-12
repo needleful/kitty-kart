@@ -60,6 +60,8 @@ func sort_racers(r):
 		var t = _racers[j]
 		_racers[j] = a
 		_racers[i] = t
+	for i in range(0, _racers.size()):
+		_racers[i].on_rank(i)
 	emit_signal("ranking_changed", _racers)
 
 # True if A is ahead of B

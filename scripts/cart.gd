@@ -28,7 +28,7 @@ var mandatory_markers = 0
 var pitch_shift_min = 1
 var pitch_shift_max = 5.5
 
-var speed_factor = 50
+var speed_factor = 35
 var throttle_min_factor = 0.3
 var speed_skid = 2
 var speed_downshift = 10
@@ -64,7 +64,15 @@ func mark_next(current:Spatial, p_target:Spatial, p_mandatory:Spatial):
 		if current.mandatory:
 			mandatory_next = p_mandatory
 			mandatory_markers += 1
+			if current == mandatory_next and current != target:
+				$"/root/GameMagager".add_cheat_event({
+					"cheat":"shortcut",
+					"racer":racer_name
+				})
 		emit_signal("mark_crossed", self)
+
+func on_rank(i):
+	pass
 
 func get_throttle() -> float:
 	return 0.0

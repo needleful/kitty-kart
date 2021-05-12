@@ -1,12 +1,12 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://scripts/game_manager.gd" type="Script" id=1]
+[ext_resource path="res://scripts/global/game_manager.gd" type="Script" id=1]
 [ext_resource path="res://ui/main_menu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/babby_circuit.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/canyon_loop.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/wild_fields.tscn" type="PackedScene" id=5]
 
 [node name="game_manager" type="Node"]
 script = ExtResource( 1 )
 main_menu = ExtResource( 2 )
-story = [ ExtResource( 3 ), ExtResource( 4 ) ]
-tracks = [ ExtResource( 3 ), ExtResource( 4 ) ]
+story = [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ) ]

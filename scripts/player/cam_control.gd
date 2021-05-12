@@ -94,9 +94,6 @@ func get_camera_rot()->Vector2:
 	return ret + c*SNS_CONTROLLER
 
 func _on_race_start(_laps):
+	set_process_input(true)
+	$"SpringArm/cam_target/Camera/pause-cage".set_process_input(true)
 	cam.current = true
-
-
-func activate_input(_laps, active):
-	set_process_input(active)
-	$"SpringArm/cam_target/Camera/pause-cage".set_process_input(active)

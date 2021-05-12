@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://assets/textures/sandstone_mat.tres" type="Material" id=1]
+[ext_resource path="res://assets/materials/sandstone_mat.tres" type="Material" id=1]
 [ext_resource path="res://scripts/weapons/proj_spawn.gd" type="Script" id=2]
 [ext_resource path="res://weapons/sandstone.tscn" type="PackedScene" id=3]
 
