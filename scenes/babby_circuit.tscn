@@ -199,12 +199,12 @@ body_node = NodePath("../player_cart")
 process_input = false
 
 [node name="player_cart" parent="." instance=ExtResource( 7 )]
-transform = Transform( -0.0240482, 0, -0.999711, 0, 1, 0, 0.999711, 0, -0.0240482, 0.758001, 0.78125, 5.28096 )
+transform = Transform( -0.0240482, 0, -0.999711, 0, 1, 0, 0.999711, 0, -0.0240482, 0.758001, 0.78125, 4.23055 )
 target_node = NodePath("../AutoRoad/start")
 force_brake = true
 
 [node name="npc_cart" parent="." instance=ExtResource( 9 )]
-transform = Transform( -5.21243e-05, 0, -1, 0, 1, 0, 1, 0, -5.21243e-05, 0.9784, 0.712597, 2.48395 )
+transform = Transform( -5.21243e-05, 0, -1, 0, 1, 0, 1, 0, -5.21243e-05, 0.9784, 0.712597, 1.43354 )
 racer_name = "Janice"
 velocity_slow = 5.0
 velocity_slow_brake = 20.0
@@ -216,7 +216,7 @@ mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
 
 [node name="npc_cart2" parent="." instance=ExtResource( 9 )]
-transform = Transform( -5.21243e-05, 0, -1, 0, 1, 0, 1, 0, -5.21243e-05, 0.9784, 0.712597, -0.536665 )
+transform = Transform( -5.21243e-05, 0, -1, 0, 1, 0, 1, 0, -5.21243e-05, 0.9784, 0.712597, -1.58708 )
 racer_name = "Nathaniel"
 turn_aggression = 1.5
 
@@ -226,7 +226,7 @@ mesh = SubResource( 2 )
 material/0 = SubResource( 4 )
 
 [node name="npc_cart3" parent="." instance=ExtResource( 9 )]
-transform = Transform( -5.21243e-05, 0, -1, 0, 1, 0, 1, 0, -5.21243e-05, 0.974327, 0.629578, -3.34955 )
+transform = Transform( -5.21243e-05, 0, -1, 0, 1, 0, 1, 0, -5.21243e-05, 0.974327, 0.629578, -4.39996 )
 racer_name = "Ferguson"
 
 [node name="MeshInstance" type="MeshInstance" parent="npc_cart3"]
@@ -267,7 +267,7 @@ curve = SubResource( 6 )
 script = ExtResource( 2 )
 template_mesh = ExtResource( 4 )
 material = SubResource( 7 )
-template_transform = Transform( 1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0 )
+template_transform = Transform( 0.7, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0 )
 object_distance = 50.0
 
 [node name="marker" parent="AutoRoad" instance=ExtResource( 10 )]
