@@ -68,9 +68,9 @@ func mark_next(current:Spatial, p_target:Spatial, p_mandatory:Spatial):
 					"cheat":"shortcut",
 					"racer":racer_name
 				})
-		emit_signal("mark_crossed", self)
 		target = p_target
 		last_good_pos = current.global_transform.origin
+		emit_signal("mark_crossed", self)
 		return true
 	return false
 

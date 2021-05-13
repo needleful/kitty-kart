@@ -48,6 +48,12 @@ collision_layer = 3
 mass = 80.0
 continuous_cd = true
 script = ExtResource( 1 )
+horsepower = 230.0
+base_throttle = 0.5
+place_throttle_bonus = 0.35
+velocity_slow = 5.0
+throttle_reverse = -1.0
+avoidance_radius = 2.0
 
 [node name="CollisionShape2" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.243859, 0.27541 )

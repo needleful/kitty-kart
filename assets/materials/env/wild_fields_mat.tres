@@ -1,0 +1,26 @@
+[gd_resource type="ShaderMaterial" load_steps=10 format=2]
+
+[ext_resource path="res://assets/materials/mix4.shader" type="Shader" id=1]
+[ext_resource path="res://assets/materials/env/Grass002_1K_Displacement.jpg" type="Texture" id=2]
+[ext_resource path="res://assets/materials/env/Grass002_1K_Color.jpg" type="Texture" id=3]
+[ext_resource path="res://assets/materials/env/Gravel020_1K_Displacement.jpg" type="Texture" id=4]
+[ext_resource path="res://assets/materials/env/Gravel020_1K_Color.jpg" type="Texture" id=5]
+[ext_resource path="res://assets/materials/env/Tiles083_1K_Displacement.jpg" type="Texture" id=6]
+[ext_resource path="res://assets/materials/env/Tiles083_1K_Color.jpg" type="Texture" id=7]
+[ext_resource path="res://assets/materials/env/Ground047_1K_Displacement.jpg" type="Texture" id=8]
+[ext_resource path="res://assets/materials/env/Ground047_1K_Color.jpg" type="Texture" id=9]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/roughness_one = 0.451
+shader_param/roughness_two = 1.0
+shader_param/roughness_three = 0.695
+shader_param/roughness_four = 0.82
+shader_param/albedo_one = ExtResource( 9 )
+shader_param/height_one = ExtResource( 8 )
+shader_param/albedo_two = ExtResource( 5 )
+shader_param/height_two = ExtResource( 4 )
+shader_param/albedo_three = ExtResource( 3 )
+shader_param/height_three = ExtResource( 2 )
+shader_param/albedo_four = ExtResource( 7 )
+shader_param/height_four = ExtResource( 6 )
