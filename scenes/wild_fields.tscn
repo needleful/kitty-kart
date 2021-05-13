@@ -384,8 +384,8 @@ shape = SubResource( 5 )
 transform = Transform( 1, 0, 0, 0, 0.940674, 0.339313, 0, -0.339313, 0.940674, 0, 24.8237, 0 )
 shadow_enabled = true
 
-[connection signal="race_start" from="." to="RaceUI" method="_on_race_start"]
 [connection signal="race_start" from="." to="player_camera" method="_on_race_start"]
+[connection signal="race_start" from="." to="RaceUI" method="_on_race_start"]
 [connection signal="race_start" from="." to="player_cart" method="_on_race_start"]
 [connection signal="ranking_changed" from="." to="RaceUI" method="_on_ranking_changed"]
 [connection signal="winner" from="." to="RaceUI" method="_on_winner"]

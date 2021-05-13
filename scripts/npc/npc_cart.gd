@@ -1,7 +1,7 @@
 extends Cart
 
-export(float) var base_throttle: float = 0.8
-export(float) var place_throttle_bonus: float = 0.1
+export(float) var base_throttle: float = 0.6
+export(float) var place_throttle_bonus: float = 0.25
 export(float) var velocity_slow: float = 10.0
 export(float) var velocity_slow_brake: float = 25
 export(float) var min_throttle_slow: float = 0.1
@@ -9,7 +9,7 @@ export(float) var throttle_reverse: float = -0.7
 export(float) var slow_slide: float = 1
 
 export(float) var avoidance: float = 0.1
-export(float) var avoidance_radius: float = 1.0
+export(float) var avoidance_radius: float = 1.5
 export(float) var avoidance_sensitivity:float = 1.5
 
 export(float) var velocity_brake: float = -5
@@ -30,14 +30,15 @@ onready var avoidance_area:Area = $avoidance_area
 var max_throttle = base_throttle
 
 var timer_no_progress = 0
-var min_velocity = 3.0
+var min_velocity = 2.0
+var time_stopped_reset = 5.0
 
 func _physics_process(delta):
 	time_since_last_fired += delta
 	if target:
 		if linear_velocity.length() < min_velocity:
 			timer_no_progress += delta
-			if timer_no_progress > time_to_reset:
+			if timer_no_progress > time_stopped_reset:
 				timer_no_progress = -5
 				reset(last_good_pos)
 		else:
