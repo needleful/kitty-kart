@@ -30,3 +30,7 @@ shader_param/height_four = ExtResource( 8 )
 
 [node name="track" parent="." index="0"]
 material/0 = SubResource( 1 )
+
+[node name="static_collision" parent="track" index="0"]
+collision_layer = 5
+collision_mask = 5

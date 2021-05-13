@@ -57,21 +57,24 @@ func set_target(p_target:Spatial):
 	last_good_pos = global_transform.origin
 
 func mark_next(current:Spatial, p_target:Spatial, p_mandatory:Spatial):
-	if current == target or current == mandatory_next:
-		target = p_target
-		last_good_pos = current.global_transform.origin
+	if current == target or current == mandatory_next and (mandatory_next == current or  mandatory_next == null):
 		markers += 1
 		if current.mandatory:
+			markers = 1
 			mandatory_next = p_mandatory
 			mandatory_markers += 1
-			if current == mandatory_next and current != target:
-				$"/root/GameMagager".add_cheat_event({
+			if current != target and target != null:
+				$"/root/GameManager".add_cheat_event({
 					"cheat":"shortcut",
 					"racer":racer_name
 				})
 		emit_signal("mark_crossed", self)
+		target = p_target
+		last_good_pos = current.global_transform.origin
+		return true
+	return false
 
-func on_rank(i):
+func on_rank(_i):
 	pass
 
 func get_throttle() -> float:

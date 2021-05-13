@@ -95,6 +95,7 @@ racers = [ NodePath("player_cart"), NodePath("npc_cart") ]
 [node name="player_camera" parent="." instance=ExtResource( 3 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.47089, 6.87502, 15.5207 )
 body_node = NodePath("../player_cart")
+process_input = false
 
 [node name="player_cart" parent="." instance=ExtResource( 2 )]
 transform = Transform( -0.0143811, 0, -0.999897, 0, 1, 0, 0.999897, 0, -0.0143811, 0, 6.8714, 15.2689 )

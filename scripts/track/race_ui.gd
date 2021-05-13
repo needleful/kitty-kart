@@ -63,7 +63,7 @@ func on_pause(pause):
 	visible = !pause
 
 func _on_ranking_changed(order):
-	var i = 0
+	var i = winners
 	for o in order:
 		i += 1
 		if o is PlayerCart:

@@ -33,8 +33,7 @@ func get_steer():
 	return s
 
 func mark_next(current:Spatial, p_target:Spatial, p_mandatory:Spatial):
-	.mark_next(current, p_target, p_mandatory)
-	if p_mandatory:
+	if .mark_next(current, p_target, p_mandatory) and current.mandatory:
 		debug_marker.get_parent().remove_child(debug_marker)
 		p_mandatory.add_child(debug_marker)
 		debug_marker.visible = true
