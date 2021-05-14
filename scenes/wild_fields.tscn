@@ -1,11 +1,13 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/components/wild_fields_mesh.tscn" type="PackedScene" id=1]
 [ext_resource path="res://characters/player_cart.tscn" type="PackedScene" id=2]
 [ext_resource path="res://characters/player_camera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://characters/janice_cart.tscn" type="PackedScene" id=4]
+[ext_resource path="res://characters/nathaniel_cart.tscn" type="PackedScene" id=5]
+[ext_resource path="res://characters/ferguson_cart.tscn" type="PackedScene" id=6]
 [ext_resource path="res://track/marker.tscn" type="PackedScene" id=13]
 [ext_resource path="res://track/starting_line.tscn" type="PackedScene" id=14]
-[ext_resource path="res://characters/npc_cart.tscn" type="PackedScene" id=15]
 [ext_resource path="res://ui/RaceUI.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scripts/track/race_manager.gd" type="Script" id=17]
 
@@ -29,7 +31,7 @@ script = ExtResource( 17 )
 track_name = "Whild Fields"
 laps = 3
 starting_line = NodePath("wild_fields/start")
-racers = [ NodePath("player_cart"), NodePath("npc_cart"), NodePath("npc_cart2"), NodePath("npc_cart3") ]
+racers = [ NodePath("player_cart"), NodePath("ferguson_cart"), NodePath("nathaniel_cart"), NodePath("janice_cart") ]
 
 [node name="RaceUI" parent="." instance=ExtResource( 16 )]
 
@@ -38,20 +40,17 @@ transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -276.77
 body_node = NodePath("../player_cart")
 process_input = false
 
-[node name="npc_cart" parent="." instance=ExtResource( 15 )]
-transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -270.975, 45.1775, 118.553 )
-racer_name = "Ferguson"
+[node name="ferguson_cart" parent="." instance=ExtResource( 6 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -271.021, 45.0944, 118.513 )
 
-[node name="npc_cart2" parent="." instance=ExtResource( 15 )]
-transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -273.635, 44.9404, 118.553 )
-racer_name = "Janice"
+[node name="nathaniel_cart" parent="." instance=ExtResource( 5 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -273.581, 44.9834, 118.527 )
 
-[node name="npc_cart3" parent="." instance=ExtResource( 15 )]
-transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -275.953, 44.9387, 118.553 )
-racer_name = "Nathaniel"
+[node name="janice_cart" parent="." instance=ExtResource( 4 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -276.276, 44.8196, 118.612 )
 
 [node name="player_cart" parent="." instance=ExtResource( 2 )]
-transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -278.5, 44.854, 118.553 )
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -278.5, 44.7784, 118.553 )
 force_brake = true
 
 [node name="wild_fields" parent="." instance=ExtResource( 1 )]
@@ -384,8 +383,8 @@ shape = SubResource( 5 )
 transform = Transform( 1, 0, 0, 0, 0.940674, 0.339313, 0, -0.339313, 0.940674, 0, 24.8237, 0 )
 shadow_enabled = true
 
-[connection signal="race_start" from="." to="RaceUI" method="_on_race_start"]
 [connection signal="race_start" from="." to="player_camera" method="_on_race_start"]
+[connection signal="race_start" from="." to="RaceUI" method="_on_race_start"]
 [connection signal="race_start" from="." to="player_cart" method="_on_race_start"]
 [connection signal="ranking_changed" from="." to="RaceUI" method="_on_ranking_changed"]
 [connection signal="winner" from="." to="RaceUI" method="_on_winner"]
