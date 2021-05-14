@@ -26,12 +26,14 @@ var dir: Vector3
 
 onready var groundCast:RayCast = $groundCast
 onready var avoidance_area:Area = $avoidance_area
+onready var anim = $body/AnimationTree
 
 var max_throttle = base_throttle
 
 var timer_no_progress = 0
 var min_velocity = 2.0
 var time_stopped_reset = 5.0
+var in_dir = Vector2.ZERO
 
 func _physics_process(delta):
 	time_since_last_fired += delta
@@ -43,6 +45,8 @@ func _physics_process(delta):
 				reset(last_good_pos)
 		else:
 			timer_no_progress = 0
+	var turn_blend = anim["parameters/turn/blend_position"]
+	anim["parameters/turn/blend_position"] = turn_blend.linear_interpolate(in_dir, 0.1)
 
 func update_target():
 	if !target:
@@ -67,6 +71,7 @@ func get_throttle():
 	if !target or !groundCast.is_colliding():
 		return 0.0
 	var throttle: float = dir.dot(-global_transform.basis.z)
+	in_dir.y = throttle
 	if !reversing:
 		if throttle < throttle_reverse:
 			reversing = true
@@ -92,9 +97,11 @@ func on_rank(i):
 
 func get_steer():
 	if !reversing:
-		var base = dir.dot(-global_transform.basis.x)*turn_aggression
-		return clamp(base*steer_angle, -steer_angle, steer_angle)
+		var base = dir.dot(-global_transform.basis.x)
+		in_dir.x = -base
+		return clamp(base*steer_angle*turn_aggression, -steer_angle, steer_angle)
 	else:
+		in_dir.x = -1
 		return steer_angle
 
 func get_slide():
