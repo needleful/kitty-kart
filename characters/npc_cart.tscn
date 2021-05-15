@@ -73,7 +73,7 @@ rings = 3
 
 [node name="npc_cart" type="VehicleBody"]
 collision_layer = 3
-mass = 80.0
+mass = 90.0
 continuous_cd = true
 script = ExtResource( 1 )
 horsepower = 230.0

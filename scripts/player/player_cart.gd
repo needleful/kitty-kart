@@ -7,6 +7,8 @@ onready var debug_marker = $debug_marker
 onready var anim = $kitty_herself/AnimationTree
 
 var input: Vector2 = Vector2.ZERO
+var reset_timer = 0
+const manual_reset_time = 3
 
 func _ready():
 	if force_brake:
@@ -18,10 +20,21 @@ func _input(event):
 			weapon.queue_free()
 			weapon = null
 
-func _process(_delta):
+func _process(delta):
 	$Label2.text = "Speed: %.1f" % linear_velocity.length()
 	var turn_blend = anim["parameters/turn/blend_position"]
 	anim["parameters/turn/blend_position"] = turn_blend.linear_interpolate(input, 0.1)
+	
+	if Input.is_action_pressed("vh_reset"):
+		reset_timer += delta
+		$reset.visible = true
+		$reset/ProgressBar.value = reset_timer*100.0/manual_reset_time
+		if reset_timer > manual_reset_time:
+			reset_timer = 0
+			reset(last_good_pos + Vector3.UP*2)
+	else:
+		reset_timer = 0
+		$reset.visible = false
 
 func get_throttle():
 	input.y = Input.get_action_strength("vh_accel") - Input.get_action_strength("vh_brake")
