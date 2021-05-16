@@ -1,0 +1,174 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/models/track/wild_fields.glb" type="PackedScene" id=1]
+[ext_resource path="res://assets/materials/env/Tiles083_1K_Color.jpg" type="Texture" id=2]
+[ext_resource path="res://assets/materials/env/wild_fields_mat.tres" type="Material" id=3]
+[ext_resource path="res://assets/materials/env/Rock030_1K_Displacement.jpg" type="Texture" id=4]
+[ext_resource path="res://assets/materials/house/house_mat3.tres" type="Material" id=5]
+[ext_resource path="res://assets/materials/house/house_mat2.tres" type="Material" id=6]
+[ext_resource path="res://tracks/components/tree_med.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scripts/track/obstacle_zone.gd" type="Script" id=8]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_texture = ExtResource( 2 )
+roughness = 0.6
+roughness_texture = ExtResource( 4 )
+
+[sub_resource type="SphereShape" id=2]
+radius = 10.0
+
+[node name="wild_fields" instance=ExtResource( 1 )]
+
+[node name="track" parent="." index="0"]
+material_override = ExtResource( 3 )
+
+[node name="static_collision" parent="track" index="0"]
+collision_layer = 5
+collision_mask = 5
+
+[node name="fountain" parent="." index="1"]
+material_override = SubResource( 1 )
+
+[node name="house002" parent="." index="4"]
+material_override = ExtResource( 5 )
+
+[node name="house004" parent="." index="6"]
+material_override = ExtResource( 5 )
+
+[node name="house005" parent="." index="7"]
+material_override = ExtResource( 5 )
+
+[node name="house008" parent="." index="10"]
+material_override = ExtResource( 5 )
+
+[node name="house010" parent="." index="12"]
+material_override = ExtResource( 6 )
+
+[node name="house012" parent="." index="14"]
+material_override = ExtResource( 5 )
+
+[node name="house013" parent="." index="15"]
+material_override = ExtResource( 5 )
+
+[node name="big_house001" parent="." index="19"]
+material_override = ExtResource( 6 )
+
+[node name="house021" parent="." index="20"]
+material_override = ExtResource( 5 )
+
+[node name="house022" parent="." index="21"]
+material_override = ExtResource( 6 )
+
+[node name="house024" parent="." index="23"]
+material_override = ExtResource( 5 )
+
+[node name="big_house003" parent="." index="25"]
+material_override = ExtResource( 5 )
+
+[node name="house031" parent="." index="27"]
+material_override = ExtResource( 5 )
+
+[node name="house033" parent="." index="29"]
+material_override = ExtResource( 5 )
+
+[node name="house017" parent="." index="31"]
+material_override = ExtResource( 5 )
+
+[node name="house018" parent="." index="32"]
+material_override = ExtResource( 5 )
+
+[node name="house026" parent="." index="35"]
+material_override = ExtResource( 5 )
+
+[node name="house028" parent="." index="37"]
+material_override = ExtResource( 5 )
+
+[node name="house034" parent="." index="40"]
+material_override = ExtResource( 5 )
+
+[node name="house036" parent="." index="42"]
+material_override = ExtResource( 5 )
+
+[node name="house040" parent="." index="46"]
+material_override = ExtResource( 5 )
+
+[node name="house041" parent="." index="47"]
+material_override = ExtResource( 5 )
+
+[node name="house045" parent="." index="51"]
+material_override = ExtResource( 5 )
+
+[node name="house048" parent="." index="54"]
+material_override = ExtResource( 5 )
+
+[node name="house051" parent="." index="57"]
+material_override = ExtResource( 5 )
+
+[node name="house053" parent="." index="59"]
+material_override = ExtResource( 6 )
+
+[node name="house056" parent="." index="62"]
+material_override = ExtResource( 5 )
+
+[node name="tree_med" parent="." index="586"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 89.2335, 10.3567, 2.68114 )
+
+[node name="tree_med" parent="tree_med" index="2" instance=ExtResource( 7 )]
+transform = Transform( -0.0868427, 0, 0.996222, 0, 1, 0, -0.996222, 0, -0.0868427, -49.5952, 0.648459, 8.13668 )
+
+[node name="tree_med15" parent="tree_med" index="3" instance=ExtResource( 7 )]
+transform = Transform( -0.887896, 0, 0.460045, 0, 1, 0, -0.460045, 0, -0.887896, -292.319, 14.8541, 55.3305 )
+
+[node name="tree_med16" parent="tree_med" index="4" instance=ExtResource( 7 )]
+transform = Transform( -0.887896, 0, 0.460045, 0, 1, 0, -0.460045, 0, -0.887896, -37.1293, 7.37541, 176.21 )
+
+[node name="tree_med17" parent="tree_med" index="5" instance=ExtResource( 7 )]
+transform = Transform( -1.07307, 0, -0.735672, 0, 1.28793, 0, 0.712244, 0, -1.10837, -23.5896, 6.2712, 175.32 )
+
+[node name="tree_med6" parent="tree_med" index="6" instance=ExtResource( 7 )]
+transform = Transform( -0.0868427, 0, 0.996222, 0, 1, 0, -0.996222, 0, -0.0868427, -130.569, -11.4312, -50.8839 )
+
+[node name="tree_med7" parent="tree_med" index="7" instance=ExtResource( 7 )]
+transform = Transform( 0.965257, 0.0361873, -0.258785, -0.0374634, 0.999298, -1.01749e-09, 0.258604, 0.00969499, 0.965935, -143.429, -11.4312, -62.9868 )
+
+[node name="tree_med8" parent="tree_med" index="8" instance=ExtResource( 7 )]
+transform = Transform( 0.302374, 0.0820884, 0.949648, -0.0374634, 0.996538, -0.074213, -0.952453, -0.013137, 0.304402, -173.653, -9.32484, -55.1992 )
+
+[node name="tree_med2" parent="tree_med" index="9" instance=ExtResource( 7 )]
+transform = Transform( 0.864143, 0, -0.503246, 0, 1, 0, 0.503246, 0, 0.864143, 114.71, -9.56617, -72.2594 )
+
+[node name="tree_med3" parent="tree_med" index="10" instance=ExtResource( 7 )]
+transform = Transform( -0.428982, 0, -0.903313, 0, 1, 0, 0.903313, 0, -0.428982, 119.618, -10.9873, -86.7015 )
+
+[node name="tree_med4" parent="tree_med" index="11" instance=ExtResource( 7 )]
+transform = Transform( -0.428982, 0, -0.903313, 0, 1, 0, 0.903313, 0, -0.428982, 81.156, -12.9872, -232.314 )
+
+[node name="tree_med9" parent="tree_med" index="12" instance=ExtResource( 7 )]
+transform = Transform( -0.428982, 0, -0.903313, 0, 1, 0, 0.903313, 0, -0.428982, -65.6523, -11.7885, -290.914 )
+
+[node name="tree_med10" parent="tree_med" index="13" instance=ExtResource( 7 )]
+transform = Transform( -0.979095, 0, 0.203402, 0, 1, 0, -0.203402, 0, -0.979095, -142.978, -12.1788, -273.444 )
+
+[node name="tree_med13" parent="tree_med" index="14" instance=ExtResource( 7 )]
+transform = Transform( 0.530984, 0, 0.847381, 0, 1, 0, -0.847381, 0, 0.530984, -154.003, -12.1788, -267.013 )
+
+[node name="tree_med14" parent="tree_med" index="15" instance=ExtResource( 7 )]
+transform = Transform( 0.931189, 0, -0.364535, 0, 1, 0, 0.364535, 0, 0.931189, -151.586, -12.1788, -276.924 )
+
+[node name="tree_med11" parent="tree_med" index="16" instance=ExtResource( 7 )]
+transform = Transform( 0.090563, 0, 0.995891, 0, 1, 0, -0.995891, 0, 0.090563, -168.558, -12.1788, -263.787 )
+
+[node name="tree_med12" parent="tree_med" index="17" instance=ExtResource( 7 )]
+transform = Transform( 0.995782, -0.0826032, -0.0399225, 0.0826691, 0.996577, 1.56101e-10, 0.0397858, -0.00330035, 0.999203, -158.532, -12.1788, -268.279 )
+
+[node name="tree_med5" parent="tree_med" index="18" instance=ExtResource( 7 )]
+transform = Transform( -0.428982, 0, -0.903313, 0, 1, 0, 0.903313, 0, -0.428982, -296.665, 18.1077, 212.979 )
+
+[node name="Area" type="Area" parent="tree_med/tree_med5" index="2"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 8 )
+radius = 10.0
+
+[node name="CollisionShape" type="CollisionShape" parent="tree_med/tree_med5/Area" index="0"]
+shape = SubResource( 2 )

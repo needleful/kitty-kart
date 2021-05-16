@@ -18,7 +18,7 @@ points = PoolVector3Array( -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1,
 size = Vector3( 1, 2, 3 )
 
 [sub_resource type="SphereShape" id=6]
-radius = 15.0
+radius = 20.0
 
 [sub_resource type="Animation" id=7]
 length = 10.0
@@ -64,7 +64,7 @@ tracks/2/keys = {
 [node name="sandstone" type="Spatial"]
 
 [node name="KinematicBody" type="KinematicBody" parent="."]
-transform = Transform( 0.896711, 0, 0.442617, 0, 1, 0, -0.442617, 0, 0.896711, 0, 0.455447, 0 )
+transform = Transform( 0.896711, 0, 0.442617, 0, 1, 0, -0.442617, 0, 0.896711, 0, -1.49349, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
 transform = Transform( 0.959798, 0.202038, -0.194855, -0.0967265, 0.889743, 0.446095, 0.263499, -0.409314, 0.873516, -0.745453, -0.122069, -1.38493 )
@@ -99,7 +99,7 @@ priority = 2.0
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 1 )
-radius = 16.0
+radius = 20.0
 
 [node name="CollisionShape" type="CollisionShape" parent="KinematicBody/Area"]
 shape = SubResource( 6 )

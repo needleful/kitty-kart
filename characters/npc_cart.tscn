@@ -1,10 +1,11 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scripts/npc/npc_cart.gd" type="Script" id=1]
 [ext_resource path="res://scripts/track/attraction_zone.gd" type="Script" id=2]
 [ext_resource path="res://assets/sfx/engine_bop.wav" type="AudioStream" id=3]
 [ext_resource path="res://assets/carts/body.mesh" type="ArrayMesh" id=4]
 [ext_resource path="res://assets/carts/kitty/tire.mesh" type="ArrayMesh" id=5]
+[ext_resource path="res://assets/sfx/pop.wav" type="AudioStream" id=6]
 
 [sub_resource type="SphereShape" id=1]
 radius = 0.347315
@@ -76,7 +77,7 @@ collision_layer = 3
 mass = 90.0
 continuous_cd = true
 script = ExtResource( 1 )
-horsepower = 230.0
+horsepower = 225.0
 throttle_reverse = -1.0
 
 [node name="CollisionShape2" type="CollisionShape" parent="."]
@@ -105,7 +106,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 0.061, 0.453 )
 use_as_traction = true
 wheel_radius = 0.227
 wheel_rest_length = 0.03
-wheel_friction_slip = 3.0
+wheel_friction_slip = 3.5
 suspension_travel = 0.1
 suspension_stiffness = 100.0
 damping_compression = 3.0
@@ -123,7 +124,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 0.061, 0.453 )
 use_as_traction = true
 wheel_radius = 0.227
 wheel_rest_length = 0.03
-wheel_friction_slip = 3.0
+wheel_friction_slip = 3.5
 suspension_travel = 0.1
 suspension_stiffness = 100.0
 damping_compression = 3.0
@@ -141,7 +142,7 @@ use_as_traction = true
 use_as_steering = true
 wheel_radius = 0.227
 wheel_rest_length = 0.03
-wheel_friction_slip = 3.0
+wheel_friction_slip = 4.0
 suspension_travel = 0.1
 suspension_stiffness = 100.0
 damping_compression = 3.0
@@ -160,7 +161,7 @@ use_as_traction = true
 use_as_steering = true
 wheel_radius = 0.227
 wheel_rest_length = 0.03
-wheel_friction_slip = 3.0
+wheel_friction_slip = 4.0
 suspension_travel = 0.1
 suspension_stiffness = 100.0
 damping_compression = 3.0
@@ -191,7 +192,6 @@ collision_mask = 2
 shape = SubResource( 9 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-visible = false
 mesh = SubResource( 10 )
 material/0 = SubResource( 11 )
 
@@ -228,3 +228,11 @@ visibility_aabb = AABB( -3.66393, -1.98717, -4, 7.32786, 3.97433, 8 )
 local_coords = false
 process_material = SubResource( 15 )
 draw_pass_1 = SubResource( 16 )
+
+[node name="wallray" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.298278, -0.873711 )
+collision_mask = 4
+
+[node name="pop" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 6 )
+bus = "Effects"

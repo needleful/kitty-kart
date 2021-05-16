@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://characters/player_cart.tscn" type="PackedScene" id=1]
+[ext_resource path="res://characters/player_camera.tscn" type="PackedScene" id=2]
+[ext_resource path="res://tracks/components/starting_line.tscn" type="PackedScene" id=3]
+[ext_resource path="res://weapons/wep_sandstone.tscn" type="PackedScene" id=4]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 40, 2, 40 )
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 20, 1, 20 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance"]
+collision_layer = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.943443, 0.128342, 0.305686, -0.331535, 0.365219, 0.869885, 0, -0.922032, 0.387113, 0, 3.48668, 0 )
+shadow_enabled = true
+
+[node name="player_cart" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.494546, 1.5, 2.29694 )
+target_node = NodePath("../starting_line")
+starting_weapon = ExtResource( 4 )
+
+[node name="starting_line" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.791829, -9.79266 )
+
+[node name="player_camera" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.72494, 1.16457, 4.41939 )
+body_node = NodePath("../player_cart")

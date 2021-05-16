@@ -1,0 +1,77 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui/default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+
+[node name="convo" type="Control"]
+anchor_left = 0.7
+anchor_top = 0.1
+anchor_right = 0.95
+anchor_bottom = 0.9
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="box" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 20.0
+margin_right = -10.0
+margin_bottom = -20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="scroll" type="ScrollContainer" parent="box"]
+margin_right = 236.0
+margin_bottom = 342.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="box/scroll"]
+margin_right = 236.0
+margin_bottom = 342.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="hbox" type="HBoxContainer" parent="box/scroll/VBoxContainer"]
+margin_right = 236.0
+
+[node name="response" type="HBoxContainer" parent="box"]
+margin_top = 346.0
+margin_right = 236.0
+margin_bottom = 440.0
+
+[node name="avatar" type="TextureRect" parent="box/response"]
+margin_right = 64.0
+margin_bottom = 94.0
+texture = ExtResource( 2 )
+stretch_mode = 4
+
+[node name="buttons" type="VBoxContainer" parent="box/response"]
+margin_left = 68.0
+margin_right = 236.0
+margin_bottom = 94.0
+size_flags_horizontal = 3
+
+[node name="option1" type="Button" parent="box/response/buttons"]
+margin_right = 168.0
+margin_bottom = 45.0
+text = "Option1"
+
+[node name="option2" type="Button" parent="box/response/buttons"]
+margin_top = 49.0
+margin_right = 168.0
+margin_bottom = 94.0

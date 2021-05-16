@@ -1,0 +1,652 @@
+[gd_scene load_steps=27 format=2]
+
+[ext_resource path="res://tracks/components/wild_fields_mesh.tscn" type="PackedScene" id=1]
+[ext_resource path="res://characters/player_cart.tscn" type="PackedScene" id=2]
+[ext_resource path="res://characters/player_camera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://characters/janice_cart.tscn" type="PackedScene" id=4]
+[ext_resource path="res://characters/nathaniel_cart.tscn" type="PackedScene" id=5]
+[ext_resource path="res://characters/ferguson_cart.tscn" type="PackedScene" id=6]
+[ext_resource path="res://weapons/swawn_sandstone.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scripts/track/attraction_zone.gd" type="Script" id=9]
+[ext_resource path="res://tracks/components/marker.tscn" type="PackedScene" id=13]
+[ext_resource path="res://tracks/components/starting_line.tscn" type="PackedScene" id=14]
+[ext_resource path="res://ui/RaceUI.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scripts/track/race_manager.gd" type="Script" id=17]
+
+[sub_resource type="Animation" id=1]
+resource_name = "loop"
+length = 95.0
+loop = true
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 7, 14, 20, 30, 41, 49, 58, 65, 71.1491, 79 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -271.642, 51.3471, 105.86 ), Vector3( -266.997, 51.3471, 164.78 ), Vector3( -150.594, 74.0255, 197.696 ), Vector3( 89.9877, 70.7559, 192.28 ), Vector3( 244.299, 36.5254, -133.548 ), Vector3( 63.0842, 37.3986, -45.9501 ), Vector3( -130.193, 40.3759, -64.7132 ), Vector3( 76.5128, 35.8651, -172.094 ), Vector3( 238.02, 32.4511, -245.376 ), Vector3( 54.8382, 30.4414, -256.983 ), Vector3( -200.622, 32.4511, -196.746 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 2
+tracks/1/loop_wrap = false
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 3, 8, 14, 22, 31, 42, 50, 59, 65, 82, 95 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -180, 0 ), Vector3( 0, -156.635, 0 ), Vector3( -8.15956, -98.3584, 5.01358 ), Vector3( -3.42921, 15.1874, -7.64023 ), Vector3( -16.7993, -45.6244, 2.84419 ), Vector3( -16.7993, 124.176, -3.36781 ), Vector3( -16.8752, 110.381, -3.84967 ), Vector3( -16.7993, -28.7244, -3.36781 ), Vector3( -14.6155, -81.4541, -2.98735 ), Vector3( -16.7993, 69.4256, -3.36781 ), Vector3( 0.0421866, 154.66, -3.66344 ), Vector3( 0, 180, 0 ) ]
+}
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 22.0822, 14.8834, 9.47281 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 7.85664, 14.8834, 6.87355 )
+
+[sub_resource type="BoxShape" id=11]
+extents = Vector3( 7.85664, 14.8834, 3.08626 )
+
+[sub_resource type="BoxShape" id=12]
+extents = Vector3( 7.85664, 14.8834, 5.81621 )
+
+[sub_resource type="BoxShape" id=13]
+extents = Vector3( 15.4335, 14.8834, 14.9584 )
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 22.8309, 14.8834, 9.47281 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 20.1153, 14.8834, 9.47281 )
+
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 10.2968, 7.87803, 6.51764 )
+
+[sub_resource type="BoxShape" id=7]
+extents = Vector3( 17.0736, 7.87803, 6.60509 )
+
+[sub_resource type="BoxShape" id=8]
+extents = Vector3( 20.6052, 7.69388, 10.1281 )
+
+[sub_resource type="CapsuleShape" id=9]
+radius = 4.04405
+height = 12.5656
+
+[sub_resource type="BoxShape" id=10]
+extents = Vector3( 4.22592, 1.17391, 1.47726 )
+
+[sub_resource type="BoxShape" id=14]
+extents = Vector3( 10.2735, 11.7542, 31.8103 )
+
+[node name="wild_fields" type="Spatial"]
+script = ExtResource( 17 )
+track_name = "Whild Fields"
+process_input = true
+laps = 3
+starting_line = NodePath("wild_fields/start")
+racers = [ NodePath("player_cart"), NodePath("ferguson_cart"), NodePath("nathaniel_cart"), NodePath("janice_cart") ]
+
+[node name="RaceUI" parent="." instance=ExtResource( 16 )]
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -0.89179, 0.00829531, -0.452374, 0.00534979, 0.999955, 0.00779012, 0.452419, 0.00452704, -0.891794, -276.498, 49.9605, 132.522 )
+visible = false
+near = 1.0
+far = 2000.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera"]
+autoplay = "loop"
+anims/loop = SubResource( 1 )
+
+[node name="Listener" type="Listener" parent="Camera"]
+current = true
+
+[node name="player_camera" parent="." instance=ExtResource( 3 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -276.772, 46.5972, 111.247 )
+body_node = NodePath("../player_cart")
+process_input = false
+
+[node name="ferguson_cart" parent="." instance=ExtResource( 6 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -271.021, 44.6441, 118.513 )
+horsepower = 230.0
+
+[node name="nathaniel_cart" parent="." instance=ExtResource( 5 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -273.581, 44.5331, 118.527 )
+horsepower = 230.0
+
+[node name="janice_cart" parent="." instance=ExtResource( 4 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -276.276, 44.3693, 118.612 )
+horsepower = 230.0
+
+[node name="player_cart" parent="." instance=ExtResource( 2 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -278.5, 44.3281, 118.553 )
+force_brake = true
+
+[node name="wild_fields" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.9461, 0 )
+
+[node name="spawn_sandstone" parent="wild_fields" instance=ExtResource( 7 )]
+transform = Transform( 0.382828, 0, -0.923819, 0, 1, 0, 0.923819, 0, 0.382828, -36.1071, 24.0563, 132.875 )
+
+[node name="spawn_sandstone2" parent="wild_fields" instance=ExtResource( 7 )]
+transform = Transform( 0.382828, 0, -0.923819, 0, 1, 0, 0.923819, 0, 0.382828, -39.513, 24.0563, 126.438 )
+
+[node name="spawn_sandstone3" parent="wild_fields" instance=ExtResource( 7 )]
+transform = Transform( 0.382828, 0, -0.923819, 0, 1, 0, 0.923819, 0, 0.382828, -33.1471, 24.0563, 139.347 )
+
+[node name="spawn_sandstone7" parent="wild_fields" instance=ExtResource( 7 )]
+transform = Transform( 0.98522, 0, -0.171293, 0, 1, 0, 0.171293, 0, 0.98522, -234.167, 4.65907, -107.729 )
+
+[node name="spawn_sandstone8" parent="wild_fields" instance=ExtResource( 7 )]
+transform = Transform( 0.98522, 0, -0.171293, 0, 1, 0, 0.171293, 0, 0.98522, -241.426, 4.65907, -108.298 )
+
+[node name="spawn_sandstone9" parent="wild_fields" instance=ExtResource( 7 )]
+transform = Transform( 0.98522, 0, -0.171293, 0, 1, 0, 0.171293, 0, 0.98522, -227.115, 4.65907, -106.763 )
+
+[node name="spawn_sandstone4" parent="wild_fields" instance=ExtResource( 7 )]
+transform = Transform( 0.0706792, 0, -0.997499, 0, 1, 0, 0.997499, 0, 0.0706792, -23.1, 3.06206, -26.97 )
+
+[node name="spawn_sandstone5" parent="wild_fields" instance=ExtResource( 7 )]
+transform = Transform( 0.0706792, 0, -0.997499, 0, 1, 0, 0.997499, 0, 0.0706792, -24.2931, 1.95288, -34.1535 )
+
+[node name="spawn_sandstone6" parent="wild_fields" instance=ExtResource( 7 )]
+transform = Transform( 0.0706792, 0, -0.997499, 0, 1, 0, 0.997499, 0, 0.0706792, -22.3415, 3.96715, -19.8929 )
+
+[node name="start" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -276.16, 25.1829, 134.263 )
+mandatory = true
+next_marker = NodePath("../mark2")
+next_mandatory_marker = NodePath("../mark12")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/start"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.16359 )
+shape = SubResource( 2 )
+
+[node name="starting_line" parent="wild_fields/start" instance=ExtResource( 14 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 3.88547, -2.40022, -8.60159 )
+
+[node name="cheatMarker" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -229.54, 25.1829, 170.748 )
+next_marker = NodePath("../cheatMarker2")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/cheatMarker"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.26775 )
+shape = SubResource( 3 )
+
+[node name="cheatMarker2" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -222.492, 25.1829, 132.665 )
+next_marker = NodePath("../cheatMarker3")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/cheatMarker2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.2816 )
+shape = SubResource( 3 )
+
+[node name="cheatMarker3" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -197.741, 25.1829, 131.571 )
+next_marker = NodePath("../cheatMarker4")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/cheatMarker3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.642654 )
+shape = SubResource( 11 )
+
+[node name="cheatMarker4" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.00130896, 0, 0.999999, 0, 1, 0, -0.999999, 0, -0.00130896, -164.823, 25.1829, 126.643 )
+next_marker = NodePath("../cheatMarker5")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/cheatMarker4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.642654 )
+shape = SubResource( 12 )
+
+[node name="cheatMarker5" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.00130896, 0, 0.999999, 0, 1, 0, -0.999999, 0, -0.00130896, -152.796, 25.1829, 83.4659 )
+next_marker = NodePath("../cheatMarker6")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/cheatMarker5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.642654 )
+shape = SubResource( 12 )
+
+[node name="cheatMarker6" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.00130896, 0, 0.999999, 0, 1, 0, -0.999999, 0, -0.00130896, -101.402, 22.3345, 81.5201 )
+next_marker = NodePath("../cheatMarker7")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/cheatMarker6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.642654 )
+shape = SubResource( 12 )
+
+[node name="cheatMarker7" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.00130896, 0, 0.999999, 0, 1, 0, -0.999999, 0, -0.00130896, -80.7003, 22.3345, 59.4773 )
+next_marker = NodePath("../cheatMarker8")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/cheatMarker7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.642654 )
+shape = SubResource( 12 )
+
+[node name="cheatMarker8" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.00130896, 0, 0.999999, 0, 1, 0, -0.999999, 0, -0.00130896, 1.56713, 16.2402, 57.2759 )
+next_marker = NodePath("../cheatMarker9")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/cheatMarker8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.642654 )
+shape = SubResource( 12 )
+
+[node name="cheatMarker9" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.00130896, 0, 0.999999, 0, 1, 0, -0.999999, 0, -0.00130896, 26.9038, 13.0202, 28.3687 )
+next_marker = NodePath("../cheatMarker10")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/cheatMarker9"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.642654 )
+shape = SubResource( 12 )
+
+[node name="cheatMarker10" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.00130896, 0, 0.999999, 0, 1, 0, -0.999999, 0, -0.00130896, 161.579, 13.0202, -11.0066 )
+next_marker = NodePath("../mark12")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/cheatMarker10"]
+transform = Transform( 0.875709, 0, 0.482839, 0, 1, 0, -0.482839, 0, 0.875709, -0.854425, -1.47755, 8.36223 )
+shape = SubResource( 13 )
+
+[node name="mark2" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( 0.764831, 0, 0.64423, 0, 1, 0, -0.64423, 0, 0.764831, -263.933, 25.1829, 197.925 )
+next_marker = NodePath("../mark3")
+next_shortcut = NodePath("../cheatMarker")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.1925, 0, -7.97446 )
+shape = SubResource( 2 )
+
+[node name="mark3" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( 0.00682416, 0, 0.999977, 0, 1, 0, -0.999977, 0, 0.00682416, -202.665, 28.7161, 214.168 )
+next_marker = NodePath("../mark4")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.899048, 0, -7.97446 )
+shape = SubResource( 2 )
+
+[node name="mark4" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.455933, 0, 0.890014, 0, 1, 0, -0.890014, 0, -0.455933, -59.1708, 25.2058, 148.398 )
+next_marker = NodePath("../mark5")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.899048, 0, -7.97446 )
+shape = SubResource( 2 )
+
+[node name="mark5" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( 0.541429, 0, 0.840746, 0, 1, 0, -0.840746, 0, 0.541429, 28.8241, 21.4247, 122.464 )
+next_marker = NodePath("../mark6")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.6287, 0, -7.97446 )
+shape = SubResource( 2 )
+
+[node name="mark6" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( 0.969441, 0, -0.245324, 0, 1, 0, 0.245324, 0, 0.969441, 24.1875, 21.4247, 180.185 )
+next_marker = NodePath("../mark7")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.598328, 0, -10.3612 )
+shape = SubResource( 2 )
+
+[node name="mark7" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( 0.787193, 0, 0.616706, 0, 1, 0, -0.616706, 0, 0.787193, 24.4906, 21.4247, 215.304 )
+next_marker = NodePath("../mark8")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark7"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.59832, 0, -5.04161 )
+shape = SubResource( 2 )
+
+[node name="mark8" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.451999, 0, 0.892018, 0, 1, 0, -0.892018, 0, -0.451999, 71.2474, 17.4253, 217.781 )
+next_marker = NodePath("../mark9")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark8"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.59832, 0, -5.04161 )
+shape = SubResource( 2 )
+
+[node name="mark9" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.451999, 0, 0.892018, 0, 1, 0, -0.892018, 0, -0.451999, 193.831, 6.5976, 87.4476 )
+next_marker = NodePath("../mark10")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark9"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, -4.27869, 0, -5.04163 )
+shape = SubResource( 4 )
+
+[node name="mark10" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.98811, 0, 0.153745, 0, 1, 0, -0.153745, 0, -0.98811, 251.858, 5.4963, 36.3252 )
+next_marker = NodePath("../mark11")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark10"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.59832, 0, -5.04161 )
+shape = SubResource( 2 )
+
+[node name="mark11" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.933837, 0, -0.3577, 0, 1, 0, 0.3577, 0, -0.933837, 273.563, 1.4381, -103.171 )
+next_marker = NodePath("../mark12")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark11"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.59832, 0, -5.04161 )
+shape = SubResource( 2 )
+
+[node name="mark12" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.371352, 0, -0.928492, 0, 1, 0, 0.928492, 0, -0.371352, 253.106, 1.4381, -128.498 )
+mandatory = true
+next_marker = NodePath("../mark13")
+next_mandatory_marker = NodePath("../mark17")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark12"]
+transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, -4.5291, 0, -2.90564 )
+shape = SubResource( 2 )
+
+[node name="mark13" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( 0.431188, 0, -0.902262, 0, 1, 0, 0.902262, 0, 0.431188, 212.975, 1.4381, -123.539 )
+next_marker = NodePath("../mark14")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark13"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.59832, 0, -5.04161 )
+shape = SubResource( 2 )
+
+[node name="mark14" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( 0.431188, 0, -0.902262, 0, 1, 0, 0.902262, 0, 0.431188, 164.759, 1.4381, -83.992 )
+next_marker = NodePath("../mark15")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark14"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.59832, 0, -5.04161 )
+shape = SubResource( 2 )
+
+[node name="mark15" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( 0.153486, 0, -0.988151, 0, 1, 0, 0.988151, 0, 0.153486, 46.4422, 2.5194, -37.9517 )
+next_marker = NodePath("../mark16")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark15"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.59832, 0, -5.04161 )
+shape = SubResource( 2 )
+
+[node name="mark16" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.558368, 0, -0.829593, 0, 1, 0, 0.829593, 0, -0.558368, -115.004, 5.4595, -36.1169 )
+next_marker = NodePath("../mark17")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark16"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.59832, 0, -5.04161 )
+shape = SubResource( 2 )
+
+[node name="mark17" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.99921, 0, 0.0397481, 0, 1, 0, -0.0397481, 0, -0.99921, -136.471, 3.9369, -77.3245 )
+mandatory = true
+next_marker = NodePath("../mark18")
+next_mandatory_marker = NodePath("../mark22")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark17"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, -2.1315, 0, -4.93302 )
+shape = SubResource( 2 )
+
+[node name="mark18" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.677903, 0, 0.735151, 0, 1, 0, -0.735151, 0, -0.677903, -110.816, 3.9369, -109.682 )
+next_marker = NodePath("../mark28")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark18"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.59832, 0, -5.04161 )
+shape = SubResource( 2 )
+
+[node name="mark28" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.37472, 0, 0.927138, 0, 1, 0, -0.927138, 0, -0.37472, -54.1519, 3.9369, -145.673 )
+next_marker = NodePath("../mark19")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark28"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.59832, 0, -5.04161 )
+shape = SubResource( 2 )
+
+[node name="mark19" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.164583, 0, 0.986363, 0, 1, 0, -0.986363, 0, -0.164583, 40.4332, -0.846901, -172.373 )
+next_marker = NodePath("../mark20")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark19"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.59832, 0, -5.04161 )
+shape = SubResource( 2 )
+
+[node name="mark20" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.593166, 0, 0.80508, 0, 1, 0, -0.80508, 0, -0.593166, 202.857, -0.846901, -195.611 )
+next_marker = NodePath("../mark21")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark20"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.59832, 0, -5.04161 )
+shape = SubResource( 2 )
+
+[node name="mark21" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.958452, 0, 0.285254, 0, 1, 0, -0.285254, 0, -0.958452, 240.598, -0.846901, -228.02 )
+next_marker = NodePath("../mark27")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark21"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, -3.45015, 0, -5.0416 )
+shape = SubResource( 5 )
+
+[node name="mark27" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.993715, 0, -0.111937, 0, 1, 0, 0.111937, 0, -0.993715, 236.537, -0.846901, -251.45 )
+next_marker = NodePath("../mark22")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark27"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, -3.45015, 0, -5.0416 )
+shape = SubResource( 5 )
+
+[node name="mark22" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( -0.291787, 0, -0.956483, 0, 1, 0, 0.956483, 0, -0.291787, 210.895, -1.0392, -272.41 )
+mandatory = true
+next_marker = NodePath("../mark23")
+next_mandatory_marker = NodePath("../start")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark22"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.59832, 0, -5.04161 )
+shape = SubResource( 2 )
+
+[node name="mark23" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( 0.206512, 0, -0.978444, 0, 1, 0, 0.978444, 0, 0.206512, 106.526, -1.0392, -271.992 )
+next_marker = NodePath("../mark24")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark23"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.59832, 0, -5.04161 )
+shape = SubResource( 2 )
+
+[node name="mark24" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( 0.591014, 0, -0.806661, 0, 1, 0, 0.806661, 0, 0.591014, -166.046, -1.0392, -206.419 )
+next_marker = NodePath("../mark25")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark24"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.59832, 0, -5.04161 )
+shape = SubResource( 2 )
+
+[node name="mark25" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( 0.986317, 0, -0.164858, 0, 1, 0, 0.164858, 0, 0.986317, -228.968, 2.3807, -139.49 )
+next_marker = NodePath("../mark26")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark25"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.59832, 0, -5.04161 )
+shape = SubResource( 2 )
+
+[node name="mark26" parent="wild_fields" instance=ExtResource( 13 )]
+transform = Transform( 0.986317, 0, -0.164858, 0, 1, 0, 0.164858, 0, 0.986317, -253.66, 17.723, 8.23645 )
+next_marker = NodePath("../start")
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/mark26"]
+transform = Transform( 1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.59832, 0, -5.04161 )
+shape = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="wild_fields"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5876, 24.8735, 37.103 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/StaticBody"]
+shape = SubResource( 6 )
+
+[node name="StaticBody7" type="StaticBody" parent="wild_fields"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -120.76, 32.549, 63.3403 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/StaticBody7"]
+shape = SubResource( 6 )
+
+[node name="StaticBody8" type="StaticBody" parent="wild_fields"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -139.599, 32.8408, 59.7502 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/StaticBody8"]
+shape = SubResource( 6 )
+
+[node name="StaticBody5" type="StaticBody" parent="wild_fields"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -208.107, 33.7744, 153.883 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/StaticBody5"]
+shape = SubResource( 6 )
+
+[node name="StaticBody6" type="StaticBody" parent="wild_fields"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -242.604, 32.4156, 153.285 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/StaticBody6"]
+shape = SubResource( 6 )
+
+[node name="StaticBody2" type="StaticBody" parent="wild_fields"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -47.9848, 24.8735, 37.186 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/StaticBody2"]
+shape = SubResource( 7 )
+
+[node name="StaticBody4" type="StaticBody" parent="wild_fields"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -198.351, 37.3648, 121.598 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/StaticBody4"]
+shape = SubResource( 7 )
+
+[node name="StaticBody13" type="StaticBody" parent="wild_fields"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -180.176, 33.5028, 142.99 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/StaticBody13"]
+shape = SubResource( 7 )
+
+[node name="StaticBody3" type="StaticBody" parent="wild_fields"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -88.5667, 25.8298, 37.1675 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/StaticBody3"]
+shape = SubResource( 7 )
+
+[node name="StaticBody9" type="StaticBody" parent="wild_fields"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -128.451, 25.8298, 37.1675 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/StaticBody9"]
+shape = SubResource( 7 )
+
+[node name="StaticBody10" type="StaticBody" parent="wild_fields"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -106.807, 34.9037, 106.609 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/StaticBody10"]
+shape = SubResource( 7 )
+
+[node name="StaticBody11" type="StaticBody" parent="wild_fields"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -135.75, 34.9037, 111.1 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/StaticBody11"]
+shape = SubResource( 7 )
+
+[node name="StaticBody12" type="StaticBody" parent="wild_fields"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -167.167, 31.4341, 54.9994 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/StaticBody12"]
+shape = SubResource( 7 )
+
+[node name="StaticBody14" type="StaticBody" parent="wild_fields"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 56.5222, 20.4583, 50.4423 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/StaticBody14"]
+shape = SubResource( 8 )
+
+[node name="attraction" type="Area" parent="wild_fields"]
+transform = Transform( 0.966953, 0, 0.254956, 0, 1, 0, -0.254956, 0, 0.966953, -230.32, 27.8473, 162.358 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 9 )
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/attraction"]
+shape = SubResource( 9 )
+
+[node name="attraction2" type="Area" parent="wild_fields"]
+transform = Transform( 0.971429, 0, -0.23733, 0, 1, 0, 0.23733, 0, 0.971429, -219.129, 27.8473, 162.535 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 9 )
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/attraction2"]
+shape = SubResource( 9 )
+
+[node name="StaticBody15" type="StaticBody" parent="wild_fields"]
+transform = Transform( 0.550288, -0.131197, 0.824603, 0.240657, 0.97059, -0.0061751, -0.799542, 0.201845, 0.565678, 230.578, -1.44726, -84.85 )
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/StaticBody15"]
+transform = Transform( 0.999484, 0, -0.032126, 1.49012e-08, 1, 0, 0.032126, 0, 0.999484, 0, 0, 0 )
+shape = SubResource( 10 )
+
+[node name="StaticBody16" type="StaticBody" parent="wild_fields"]
+transform = Transform( 0.837181, -0.450512, 0.310107, 0.483664, 0.874544, -0.0352207, -0.255335, 0.179474, 0.950049, 19.0808, -3.02594, -140.754 )
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/StaticBody16"]
+transform = Transform( 0.999484, 0, -0.032126, 1.49012e-08, 1, 0, 0.032126, 0, 0.999484, 0, 0, 0 )
+shape = SubResource( 10 )
+
+[node name="StaticBody17" type="StaticBody" parent="wild_fields"]
+transform = Transform( -0.811818, 0.418918, 0.406767, 0.444292, 0.895189, -0.0352207, -0.378888, 0.15213, -0.912853, -60.5109, -4.67138, -213.573 )
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/StaticBody17"]
+transform = Transform( 0.999484, 0, -0.032126, 1.49012e-08, 1, 0, 0.032126, 0, 0.999484, 0, 0, 0 )
+shape = SubResource( 10 )
+
+[node name="ramp_attraction" type="Area" parent="wild_fields"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 232.089, 1.52588e-05, -86.3539 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 9 )
+
+[node name="CollisionShape" type="CollisionShape" parent="wild_fields/ramp_attraction"]
+transform = Transform( 0.794754, 0.12914, -0.593034, 0, 0.977101, 0.212775, 0.606932, -0.169103, 0.776555, -14.8854, 2.41139, 19.4919 )
+shape = SubResource( 14 )
+
+[connection signal="race_start" from="." to="player_camera" method="_on_race_start"]
+[connection signal="race_start" from="." to="player_cart" method="_on_race_start"]
+[connection signal="race_start" from="." to="RaceUI" method="_on_race_start"]
+[connection signal="ranking_changed" from="." to="RaceUI" method="_on_ranking_changed"]
+[connection signal="winner" from="." to="RaceUI" method="_on_winner"]
+[connection signal="crossed" from="wild_fields/start" to="." method="_on_start_crossed"]
+[connection signal="crossed" from="wild_fields/cheatMarker" to="." method="_on_start_crossed"]
+[connection signal="crossed" from="wild_fields/cheatMarker2" to="." method="_on_start_crossed"]
+[connection signal="crossed" from="wild_fields/cheatMarker3" to="." method="_on_start_crossed"]
+[connection signal="crossed" from="wild_fields/cheatMarker4" to="." method="_on_start_crossed"]
+[connection signal="crossed" from="wild_fields/cheatMarker5" to="." method="_on_start_crossed"]
+[connection signal="crossed" from="wild_fields/cheatMarker6" to="." method="_on_start_crossed"]
+[connection signal="crossed" from="wild_fields/cheatMarker7" to="." method="_on_start_crossed"]
+[connection signal="crossed" from="wild_fields/cheatMarker8" to="." method="_on_start_crossed"]
+[connection signal="crossed" from="wild_fields/cheatMarker9" to="." method="_on_start_crossed"]
+[connection signal="crossed" from="wild_fields/cheatMarker10" to="." method="_on_start_crossed"]

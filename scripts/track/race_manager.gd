@@ -5,6 +5,7 @@ signal ranking_changed(order)
 signal winner(racer, winners)
 
 export(String) var track_name = "Track"
+export(bool) var process_input = false
 
 var start_timer = Timer.new() 
 
@@ -22,10 +23,12 @@ func _input(event):
 	if event.is_action_pressed("ui_accept"):
 		start_countdown()
 		set_process_input(false)
+		print("Starting race")
 	else:
 		get_tree().set_input_as_handled()
 
 func _ready():
+	PhysicsServer.set_active(false)
 	$"/root/GameManager".clear_results()
 	for node in racers:
 		var r = get_node(node)
@@ -33,11 +36,20 @@ func _ready():
 		_racers.push_back(r)
 		var _x = r.connect("mark_crossed", self, "sort_racers")
 	get_tree().call_group("race_ui", "set_race_stats", track_name, laps, _racers)
+	set_process_input(process_input)
+
+func end_convo():
+	set_process_input(true)
 
 func start_countdown():
+	PhysicsServer.set_active(true)
+	for r in _racers:
+		if "early_start" in r and r.early_start and !r.target:
+			r.set_target(start)
 	emit_signal("race_start", laps)
 
 func start_race():
+	PhysicsServer.set_active(true)
 	race_started = true
 	for r in _racers:
 		if !r.target:
@@ -66,6 +78,8 @@ func sort_racers(r):
 
 # True if A is ahead of B
 func racer_ahead(a: Cart, b: Cart):
+	if !b.target:
+		return !!a.target
 	if a.lap != b.lap:
 		return a.lap > b.lap
 	if a.mandatory_markers != b.mandatory_markers:

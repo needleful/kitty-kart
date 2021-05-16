@@ -1,6 +1,6 @@
 extends Area
 
-export(float) var radius
+export(float) var radius = 1
 
 func _ready():
 	var _x = connect("body_exited", self, "on_exit")

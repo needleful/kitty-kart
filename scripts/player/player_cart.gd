@@ -45,11 +45,13 @@ func get_steer():
 	input.x = -s
 	return s
 
-func mark_next(current:Spatial, p_target:Spatial, p_mandatory:Spatial):
-	if .mark_next(current, p_target, p_mandatory) and current.mandatory:
+func mark_next(current:Spatial):
+	if .mark_next(current) and current.mandatory:
 		debug_marker.get_parent().remove_child(debug_marker)
-		p_mandatory.add_child(debug_marker)
-		debug_marker.visible = true
+		var c = current.next_mandatory
+		if c:
+			c.add_child(debug_marker)
+			debug_marker.visible = true
 
 func get_slide():
 	if force_brake:
@@ -61,6 +63,7 @@ func set_slow(slow):
 	$Label.visible = slow
 
 func _on_race_start(_laps):
+	set_physics_process(true)
 	set_process_input(true)
 	force_brake = false
 	$Listener.make_current()

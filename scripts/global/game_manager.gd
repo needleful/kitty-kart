@@ -13,7 +13,7 @@ var current_scene:int = 0
 var mode = Mode.Story
 
 var race_results = []
-var race_cheat_events = []
+var race_cheat_events = {}
 
 func shuffle():
 	tracks.shuffle()
@@ -28,11 +28,13 @@ func start(shuffle:bool = false):
 
 func clear_results():
 	race_results = []
-	race_cheat_events = []
+	race_cheat_events = {}
 
 func add_cheat_event(cheat:Dictionary):
 	print("CHEATER! %s for %s" % [cheat["cheat"], cheat["racer"]])
-	race_cheat_events.push_back(cheat)
+	if !cheat["racer"] in race_cheat_events:
+		race_cheat_events[cheat["racer"]] = []
+	race_cheat_events[cheat["racer"]].push_back(cheat["cheat"])
 
 func add_winner(racer_name):
 	print("Winner: ", racer_name)

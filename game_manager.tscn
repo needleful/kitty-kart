@@ -2,9 +2,9 @@
 
 [ext_resource path="res://scripts/global/game_manager.gd" type="Script" id=1]
 [ext_resource path="res://ui/main_menu.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/babby_circuit.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/canyon_loop.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/wild_fields.tscn" type="PackedScene" id=5]
+[ext_resource path="res://tracks/babby_circuit.tscn" type="PackedScene" id=3]
+[ext_resource path="res://tracks/canyon_loop.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/01_wild_fields.tscn" type="PackedScene" id=5]
 
 [node name="game_manager" type="Node"]
 script = ExtResource( 1 )

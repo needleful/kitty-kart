@@ -56,19 +56,22 @@ func set_target(p_target:Spatial):
 	target = p_target
 	last_good_pos = global_transform.origin
 
-func mark_next(current:Spatial, p_target:Spatial, p_mandatory:Spatial):
+func mark_next(current:Spatial):
 	if current == target or current == mandatory_next and (mandatory_next == current or  mandatory_next == null):
 		markers += 1
 		if current.mandatory:
 			markers = 1
-			mandatory_next = p_mandatory
+			mandatory_next = current.next_mandatory
 			mandatory_markers += 1
 			if current != target and target != null:
 				$"/root/GameManager".add_cheat_event({
 					"cheat":"shortcut",
 					"racer":racer_name
 				})
-		target = p_target
+		if should_shortcut() and current.has_shortcut():
+			target = current.shortcut()
+		else:
+			target = current.next
 		last_good_pos = current.global_transform.origin
 		emit_signal("mark_crossed", self)
 		return true
@@ -122,6 +125,7 @@ func _physics_process(delta):
 	$Particles2.emitting = skid and $wheel_br.is_in_contact()
 
 func reset(pos: Vector3):
+	$pop.play()
 	global_transform.origin = pos
 	if target:
 		global_transform = global_transform.looking_at(target.global_transform.origin, Vector3.UP)
@@ -136,6 +140,9 @@ func set_weapon(wep: PackedScene):
 
 func on_range_entered(_x):
 	pass
+
+func should_shortcut():
+	return false
 
 func next_lap():
 	lap += 1

@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://ui/fonts/big_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/music/race_countdown.wav" type="AudioStream" id=2]
 [ext_resource path="res://scripts/track/race_ui.gd" type="Script" id=3]
+[ext_resource path="res://icon.png" type="Texture" id=4]
 [ext_resource path="res://ui/default_theme.tres" type="Theme" id=5]
 [ext_resource path="res://ui/sprites/prompt_a.png" type="Texture" id=6]
 [ext_resource path="res://ui/sprites/prompt_b.png" type="Texture" id=7]
@@ -103,7 +104,7 @@ tracks/6/keys = {
 ]]
 pause_mode = 1
 anchor_right = 1.0
-anchor_bottom = 0.8
+anchor_bottom = 1.0
 theme = ExtResource( 5 )
 script = ExtResource( 3 )
 __meta__ = {
@@ -506,3 +507,77 @@ margin_top = -77.0
 margin_bottom = 2.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Lap X/Y"
+
+[node name="convo" type="Control" parent="."]
+visible = false
+anchor_left = 0.6
+anchor_top = 0.2
+anchor_right = 0.95
+anchor_bottom = 0.9
+theme = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="convo"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="box" type="VBoxContainer" parent="convo"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 20.0
+margin_right = -10.0
+margin_bottom = -20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="scroll" type="ScrollContainer" parent="convo/box"]
+margin_right = 338.0
+margin_bottom = 282.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="convo/box/scroll"]
+margin_right = 338.0
+margin_bottom = 282.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="hbox" type="HBoxContainer" parent="convo/box/scroll/VBoxContainer"]
+margin_right = 338.0
+
+[node name="response" type="HBoxContainer" parent="convo/box"]
+margin_top = 286.0
+margin_right = 338.0
+margin_bottom = 380.0
+
+[node name="avatar" type="TextureRect" parent="convo/box/response"]
+margin_right = 64.0
+margin_bottom = 94.0
+texture = ExtResource( 4 )
+stretch_mode = 4
+
+[node name="buttons" type="VBoxContainer" parent="convo/box/response"]
+margin_left = 68.0
+margin_right = 338.0
+margin_bottom = 94.0
+size_flags_horizontal = 3
+
+[node name="option1" type="Button" parent="convo/box/response/buttons"]
+margin_right = 270.0
+margin_bottom = 45.0
+text = "Option1"
+
+[node name="option2" type="Button" parent="convo/box/response/buttons"]
+margin_top = 49.0
+margin_right = 270.0
+margin_bottom = 94.0

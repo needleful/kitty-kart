@@ -1,11 +1,14 @@
 extends Cart
 
+export(bool) var early_start = false
+export(int) var cheat_lap = 256
+
 export(float) var base_throttle: float = 0.6
 export(float) var place_throttle_bonus: float = 0.25
 export(float) var velocity_slow: float = 10.0
 export(float) var velocity_slow_brake: float = 25
 export(float) var min_throttle_slow: float = 0.1
-export(float) var throttle_reverse: float = -0.7
+export(float) var throttle_reverse: float = -0.3
 export(float) var slow_slide: float = 1
 
 export(float) var avoidance: float = 0.1
@@ -31,9 +34,10 @@ onready var anim = $body/AnimationTree
 var max_throttle = base_throttle
 
 var timer_no_progress = 0
-var min_velocity = 2.0
-var time_stopped_reset = 5.0
+var min_velocity = 1.0
+var time_stopped_reset = 2.5
 var in_dir = Vector2.ZERO
+
 
 func _physics_process(delta):
 	time_since_last_fired += delta
@@ -55,7 +59,7 @@ func update_target():
 		target_pos = temp_target
 	else:
 		target_pos = target.global_transform.origin
-	dir = (target_pos - global_transform.origin ).normalized()
+	dir = (target_pos - global_transform.origin).normalized()
 	
 	for racer in avoidance_area.get_overlapping_bodies():
 		if racer != self:
@@ -63,8 +67,10 @@ func update_target():
 			var c = -diff.slide(global_transform.basis.z).normalized()
 			var q = clamp(avoidance_radius/(diff.length() + 0.0001), 0, avoidance_sensitivity)
 			dir += c*q
+	if $wallray.is_colliding():
+		dir = global_transform.basis.z*6
 	dir = dir.normalized()
-	$MeshInstance.transform.origin = dir*4
+	$MeshInstance.global_transform.origin = global_transform.origin + dir*4
 
 func get_throttle():
 	update_target()
@@ -76,20 +82,23 @@ func get_throttle():
 		if throttle < throttle_reverse:
 			reversing = true
 		else:
+			var speed = linear_velocity.length()
 			if slow:
-				var speed = linear_velocity.length()
 				if speed < velocity_slow:
 					throttle = max(throttle, 0.5)
 				else:
 					var vel_effect = velocity_slow/speed
 					throttle = clamp(throttle*vel_effect, min_throttle_slow, 1)
 			else:
-				throttle = max(0.5, throttle)
+				if speed < velocity_slow:
+					throttle = 1
+				else:
+					throttle = max(0.5, throttle)
 	else:
 		if throttle > 0:
 			reversing = false
 		else:
-			throttle = -1
+			return -1
 	return throttle*max_throttle
 
 func on_rank(i):
@@ -124,16 +133,8 @@ func set_temp_target(t, pri = 0):
 func set_slow(s):
 	slow = s
 
-func apply_params(p):
-	for k in p.keys:
-		set(k, p[k])
-		assert(self[k] == p[k])
-
-func get_params():
-	var n = NPC_Params.new()
-	for k in n.keys:
-		n[k] = get(k)
-	return n
+func should_shortcut():
+	return lap >= cheat_lap
 
 func on_range_entered(_enemy):
 	if time_since_last_fired > fire_pause:

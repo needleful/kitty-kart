@@ -19,33 +19,27 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/cart.gd"
 }, {
+"base": "Resource",
+"class": "Message",
+"language": "GDScript",
+"path": "res://scripts/npc/message.gd"
+}, {
 "base": "Reference",
 "class": "MoveMath",
 "language": "GDScript",
 "path": "res://scripts/global/move_math.gd"
 }, {
-"base": "Resource",
-"class": "NPC_Params",
-"language": "GDScript",
-"path": "res://scripts/npc/params.gd"
-}, {
 "base": "Cart",
 "class": "PlayerCart",
 "language": "GDScript",
 "path": "res://scripts/player/player_cart.gd"
-}, {
-"base": "Resource",
-"class": "Seeds",
-"language": "GDScript",
-"path": "res://scripts/npc/seeds.gd"
 } ]
 _global_script_class_icons={
 "AutoRoad": "",
 "Cart": "",
+"Message": "",
 "MoveMath": "",
-"NPC_Params": "",
-"PlayerCart": "",
-"Seeds": ""
+"PlayerCart": ""
 }
 
 [application]
