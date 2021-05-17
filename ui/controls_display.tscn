@@ -1,0 +1,158 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui/sprites/prompt_x.png" type="Texture" id=1]
+[ext_resource path="res://ui/sprites/prompt_y.png" type="Texture" id=2]
+
+[node name="Control" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 196.0
+columns = 3
+
+[node name="Label10" type="Label" parent="GridContainer"]
+margin_top = 23.0
+margin_right = 338.0
+margin_bottom = 37.0
+size_flags_horizontal = 3
+text = "Handbrake"
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer"]
+margin_left = 342.0
+margin_right = 680.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 60, 60 )
+size_flags_horizontal = 3
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+
+[node name="Label12" type="Label" parent="GridContainer"]
+margin_left = 684.0
+margin_top = 23.0
+margin_right = 1022.0
+margin_bottom = 37.0
+size_flags_horizontal = 3
+text = "Spacebar"
+
+[node name="Label11" type="Label" parent="GridContainer"]
+margin_top = 87.0
+margin_right = 338.0
+margin_bottom = 101.0
+text = "Fire Weapon"
+
+[node name="TextureRect2" type="TextureRect" parent="GridContainer"]
+margin_left = 342.0
+margin_top = 64.0
+margin_right = 680.0
+margin_bottom = 124.0
+rect_min_size = Vector2( 60, 60 )
+size_flags_horizontal = 3
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+
+[node name="Label13" type="Label" parent="GridContainer"]
+margin_left = 684.0
+margin_top = 87.0
+margin_right = 1022.0
+margin_bottom = 101.0
+size_flags_horizontal = 3
+text = "E"
+
+[node name="Label14" type="Label" parent="GridContainer"]
+margin_top = 128.0
+margin_right = 338.0
+margin_bottom = 142.0
+size_flags_horizontal = 3
+text = "Respawn at checkpoint"
+
+[node name="Label15" type="Label" parent="GridContainer"]
+margin_left = 342.0
+margin_top = 128.0
+margin_right = 680.0
+margin_bottom = 142.0
+size_flags_horizontal = 3
+text = "Back/Select"
+
+[node name="Label16" type="Label" parent="GridContainer"]
+margin_left = 684.0
+margin_top = 128.0
+margin_right = 1022.0
+margin_bottom = 142.0
+size_flags_horizontal = 3
+text = "R"
+
+[node name="Label4" type="Label" parent="GridContainer"]
+margin_top = 146.0
+margin_right = 338.0
+margin_bottom = 160.0
+size_flags_horizontal = 3
+text = "Forward/Back"
+
+[node name="Label5" type="Label" parent="GridContainer"]
+margin_left = 342.0
+margin_top = 146.0
+margin_right = 680.0
+margin_bottom = 160.0
+size_flags_horizontal = 3
+text = "Left/Right Triggers"
+
+[node name="Label6" type="Label" parent="GridContainer"]
+margin_left = 684.0
+margin_top = 146.0
+margin_right = 1022.0
+margin_bottom = 160.0
+size_flags_horizontal = 3
+text = "W/S"
+
+[node name="Label7" type="Label" parent="GridContainer"]
+margin_top = 164.0
+margin_right = 338.0
+margin_bottom = 178.0
+size_flags_horizontal = 3
+text = "Left/Right"
+
+[node name="Label8" type="Label" parent="GridContainer"]
+margin_left = 342.0
+margin_top = 164.0
+margin_right = 680.0
+margin_bottom = 178.0
+size_flags_horizontal = 3
+text = "Left Analog Stick"
+
+[node name="Label9" type="Label" parent="GridContainer"]
+margin_left = 684.0
+margin_top = 164.0
+margin_right = 1022.0
+margin_bottom = 178.0
+size_flags_horizontal = 3
+text = "A/D"
+
+[node name="Label17" type="Label" parent="GridContainer"]
+margin_top = 182.0
+margin_right = 338.0
+margin_bottom = 196.0
+size_flags_horizontal = 3
+text = "Navigate Menus"
+
+[node name="Label18" type="Label" parent="GridContainer"]
+margin_left = 342.0
+margin_top = 182.0
+margin_right = 680.0
+margin_bottom = 196.0
+size_flags_horizontal = 3
+text = "D-Pad"
+
+[node name="Label19" type="Label" parent="GridContainer"]
+margin_left = 684.0
+margin_top = 182.0
+margin_right = 1022.0
+margin_bottom = 196.0
+size_flags_horizontal = 3
+text = "Arrow Keys"

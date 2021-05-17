@@ -85,7 +85,7 @@ extents = Vector3( 10.2735, 11.7542, 31.8103 )
 
 [node name="wild_fields" type="Spatial"]
 script = ExtResource( 17 )
-track_name = "Whild Fields"
+track_name = "Wild Fields"
 process_input = true
 laps = 3
 starting_line = NodePath("wild_fields/start")
@@ -634,11 +634,14 @@ script = ExtResource( 9 )
 transform = Transform( 0.794754, 0.12914, -0.593034, 0, 0.977101, 0.212775, 0.606932, -0.169103, 0.776555, -14.8854, 2.41139, 19.4919 )
 shape = SubResource( 14 )
 
-[connection signal="race_start" from="." to="player_camera" method="_on_race_start"]
 [connection signal="race_start" from="." to="player_cart" method="_on_race_start"]
+[connection signal="race_start" from="." to="player_camera" method="_on_race_start"]
 [connection signal="race_start" from="." to="RaceUI" method="_on_race_start"]
 [connection signal="ranking_changed" from="." to="RaceUI" method="_on_ranking_changed"]
 [connection signal="winner" from="." to="RaceUI" method="_on_winner"]
+[connection signal="go" from="RaceUI" to="." method="start_race"]
+[connection signal="next_track" from="RaceUI" to="." method="_on_next_track"]
+[connection signal="restart" from="RaceUI" to="." method="_on_restart"]
 [connection signal="crossed" from="wild_fields/start" to="." method="_on_start_crossed"]
 [connection signal="crossed" from="wild_fields/cheatMarker" to="." method="_on_start_crossed"]
 [connection signal="crossed" from="wild_fields/cheatMarker2" to="." method="_on_start_crossed"]

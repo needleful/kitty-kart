@@ -87,6 +87,7 @@ extents = Vector3( 25.7114, 12.1655, 34.712 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 48.6763, 0 )
 script = ExtResource( 14 )
 track_name = "The Iron Circuit"
+process_input = true
 laps = 3
 starting_line = NodePath("AutoRoad/start")
 racers = [ NodePath("janice_cart"), NodePath("nathaniel_cart"), NodePath("player_cart"), NodePath("ferguson_cart") ]
@@ -473,9 +474,9 @@ __meta__ = {
 transform = Transform( 0.615319, -0.151598, -0.773564, 0.0825454, 0.98833, -0.128027, 0.783944, 0.0149231, 0.620652, -8.51874, -0.273636, 12.3773 )
 shape = SubResource( 9 )
 
-[connection signal="race_start" from="." to="player_cart" method="_on_race_start"]
 [connection signal="race_start" from="." to="player_camera" method="_on_race_start"]
 [connection signal="race_start" from="." to="RaceUI" method="_on_race_start"]
+[connection signal="race_start" from="." to="player_cart" method="_on_race_start"]
 [connection signal="ranking_changed" from="." to="RaceUI" method="_on_ranking_changed"]
 [connection signal="winner" from="." to="RaceUI" method="_on_winner"]
 [connection signal="go" from="RaceUI" to="music" method="play"]

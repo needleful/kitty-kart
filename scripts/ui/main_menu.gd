@@ -10,8 +10,8 @@ func _on_story_pressed():
 func _on_shuffle_pressed():
 	$"/root/GameManager".start(true)
 
-func _on_options_pressed():
-	pass # Replace with function body.
-
 func _on_quit_pressed():
 	get_tree().quit()
+
+func _on_controls_toggled(button_pressed):
+	$control/PanelContainer.visible = button_pressed

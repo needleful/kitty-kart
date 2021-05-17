@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://ui/fonts/big_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scripts/ui/pause_menu.gd" type="Script" id=2]
 [ext_resource path="res://ui/sprites/arrow-vert.png" type="Texture" id=3]
 [ext_resource path="res://ui/sprites/arrow.png" type="Texture" id=4]
 [ext_resource path="res://ui/default_theme.tres" type="Theme" id=5]
+[ext_resource path="res://ui/controls_display.tscn" type="PackedScene" id=6]
 
 [node name="menu" type="VBoxContainer"]
 anchor_left = 0.2
@@ -33,13 +34,13 @@ margin_bottom = 533.0
 rect_min_size = Vector2( 0, 400 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="tabs"]
-margin_right = 127.0
+margin_right = 145.0
 margin_bottom = 400.0
 alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="tabs/VBoxContainer"]
 margin_top = 80.0
-margin_right = 127.0
+margin_right = 145.0
 margin_bottom = 128.0
 rect_min_size = Vector2( 0, 48 )
 texture = ExtResource( 3 )
@@ -49,11 +50,11 @@ flip_v = true
 
 [node name="labels" type="VBoxContainer" parent="tabs/VBoxContainer"]
 margin_top = 132.0
-margin_right = 127.0
+margin_right = 145.0
 margin_bottom = 275.0
 
 [node name="game" type="Button" parent="tabs/VBoxContainer/labels"]
-margin_right = 127.0
+margin_right = 145.0
 margin_bottom = 45.0
 focus_neighbour_top = NodePath("../graphics")
 focus_neighbour_right = NodePath("../../../content/subpage/tabs/game/Control/resume")
@@ -62,25 +63,25 @@ text = "Game"
 
 [node name="audio" type="Button" parent="tabs/VBoxContainer/labels"]
 margin_top = 49.0
-margin_right = 127.0
+margin_right = 145.0
 margin_bottom = 94.0
 focus_neighbour_top = NodePath("../game")
 focus_neighbour_right = NodePath("../../../content/subpage/tabs/audio/music/CheckBox")
 focus_neighbour_bottom = NodePath("../graphics")
 text = "Audio"
 
-[node name="graphics" type="Button" parent="tabs/VBoxContainer/labels"]
+[node name="controls" type="Button" parent="tabs/VBoxContainer/labels"]
 margin_top = 98.0
-margin_right = 127.0
+margin_right = 145.0
 margin_bottom = 143.0
 focus_neighbour_top = NodePath("../audio")
 focus_neighbour_bottom = NodePath("../game")
 toggle_mode = true
-text = "Display"
+text = "Controls"
 
 [node name="TextureRect2" type="TextureRect" parent="tabs/VBoxContainer"]
 margin_top = 279.0
-margin_right = 127.0
+margin_right = 145.0
 margin_bottom = 319.0
 rect_min_size = Vector2( 0, 40 )
 texture = ExtResource( 3 )
@@ -88,7 +89,7 @@ expand = true
 stretch_mode = 6
 
 [node name="content" type="Panel" parent="tabs"]
-margin_left = 131.0
+margin_left = 149.0
 margin_right = 614.0
 margin_bottom = 400.0
 rect_min_size = Vector2( 400, 400 )
@@ -113,7 +114,7 @@ flip_h = true
 
 [node name="tabs" type="Control" parent="tabs/content/subpage"]
 margin_left = 52.0
-margin_right = 431.0
+margin_right = 413.0
 margin_bottom = 400.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -200,7 +201,7 @@ __meta__ = {
 }
 
 [node name="music" type="Control" parent="tabs/content/subpage/tabs/audio"]
-margin_right = 123.0
+margin_right = 117.0
 margin_bottom = 400.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -219,8 +220,8 @@ __meta__ = {
 }
 
 [node name="effects" type="Control" parent="tabs/content/subpage/tabs/audio"]
-margin_left = 127.0
-margin_right = 251.0
+margin_left = 121.0
+margin_right = 239.0
 margin_bottom = 400.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -238,8 +239,8 @@ __meta__ = {
 }
 
 [node name="master" type="Control" parent="tabs/content/subpage/tabs/audio"]
-margin_left = 255.0
-margin_right = 379.0
+margin_left = 243.0
+margin_right = 361.0
 margin_bottom = 400.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -256,20 +257,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="graphics" type="HBoxContainer" parent="tabs/content/subpage/tabs"]
-visible = false
-margin_left = 211.0
-margin_right = 419.0
-margin_bottom = 400.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="controls" parent="tabs/content/subpage/tabs" instance=ExtResource( 6 )]
 
 [node name="TextureRect2" type="TextureRect" parent="tabs/content/subpage"]
-margin_left = 435.0
-margin_right = 483.0
+margin_left = 417.0
+margin_right = 465.0
 margin_bottom = 400.0
 rect_min_size = Vector2( 48, 80 )
 texture = ExtResource( 4 )
